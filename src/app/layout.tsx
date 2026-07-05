@@ -5,6 +5,7 @@ import "./globals.css";
 import "./scss/layout.scss";
 import "./scss/home.scss";
 import Link from "next/link";
+import HeaderNav from "./component/HeaderNav";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -28,19 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Link href="/home">LIA CUISINE</Link>
               <span>Saveurs d'Afrique • Gatineau</span>
             </div>
-            <nav className="header__nav">
-              <ul className="nav-list">
-                <li><Link href="/home">Accueil</Link></li>
-                <li><Link href="/menu">Menu</Link></li>
-                <li><Link href="/galerie">Galerie</Link></li>
-                <li><Link href="/evenement">Événements</Link></li>
-                <li><Link href="/about">À Propos</Link></li>
-                <li><Link href="/contact">Contact</Link></li>
-                <li className="li_commande">
-                  <Link href="/kart"><button type="button">Commander</button></Link>
-                </li>
-              </ul>
-            </nav>
+            <HeaderNav />
           </div>
         </header>
 

@@ -21,8 +21,9 @@
 
 body {
   background: white;
-  color: darkblue;
-  font-family: Arial, Helvetica, sans-serif;
+  color: #2E2520;
+  font-family: 'Anek Gujarati', 'Arya', Arial, Helvetica, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .form-honeypot {
