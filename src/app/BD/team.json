@@ -1,0 +1,20 @@
+[
+    {
+        "alt": "Photo de Lorem Ipsum, Chef Exécutif",
+        "name": "Lorem Ipsum",
+        "role": "Chef Exécutif(ve)",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+    },
+    {
+        "alt": "Photo de Dolor Sit, Propriétaire et Fondateur",
+        "name": "Dolor Sit",
+        "role": "Propriétaire & Fondateur(trice)",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+    },
+    {
+        "alt": "Photo de Amet Cons, Directeur des Opérations",
+        "name": "Amet Cons",
+        "role": "Directeur(trice) des Opérations",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+    }
+]

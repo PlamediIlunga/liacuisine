@@ -1,0 +1,272 @@
+@use "sass:color";
+
+// ── Palette ──────────────────────────────────────────────────────────────────
+$rose-principal:   #C8566B;
+$rose-sombre:      #B54660;
+$rose-pale:        #D4697C;
+$rouge-cta:        #B03050;
+$rouge-style1:     #A35559;
+$or:               #C49A1A;
+$blanc:            #FFFFFF;
+$creme-pale:       #FAF7F2;
+$texte-body:       #2E2520;
+$texte-dim-clair:  rgba(46, 37, 32, 0.75);
+$texte-blanc:      rgba(255, 255, 255, 0.95);
+$texte-blanc-dim:  rgba(255, 255, 255, 0.72);
+
+// ── Misc tokens ───────────────────────────────────────────────────────────────
+$radius-card:   18px;
+$radius-input:  8px;
+$block-rouge-w: 56px;
+
+// ── Échelle d'ombres + easing partagés ────────────────────────────────────────
+$shadow-sm: 0 2px 10px rgba(0, 0, 0, .08);
+$shadow-md: 0 10px 32px rgba(0, 0, 0, .16);
+$shadow-lg: 0 24px 60px rgba(0, 0, 0, .28);
+$ease-out:  cubic-bezier(.22, 1, .36, 1);
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+// ── Section wrapper ───────────────────────────────────────────────────────────
+.contact-section {
+    position: relative;
+    background: url('/image/unnamed\ \(1\).webp') center center / cover no-repeat;
+    background-color: #2a2a2a; // fallback si image manquante
+    background-attachment: fixed;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(160deg, rgba(20, 15, 10, .68) 0%, rgba(20, 15, 10, .48) 100%);
+        pointer-events: none;
+    }
+
+    > * { position: relative; }
+}
+
+// ── Hero banner ───────────────────────────────────────────────────────────────
+.contact-hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 6%;
+    padding: 5% 9% 3%;
+    animation: fade-up .7s $ease-out both;
+
+    &__left { flex: 1 1 40%; }
+
+    &__title {
+        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-weight: 700;
+        color: $texte-blanc;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+        margin: 0 0 0.85rem;
+    }
+
+    &__subtitle {
+        font-size: 0.95rem;
+        color: $texte-blanc-dim;
+        line-height: 1.65;
+        max-width: 36ch;
+        margin: 0;
+    }
+
+    &__right {
+        flex: 1 1 45%;
+        display: flex;
+        align-items: flex-start;
+        gap: 1.35rem;
+    }
+
+    &__desc {
+        font-size: 0.88rem;
+        color: $texte-blanc-dim;
+        line-height: 1.7;
+        margin: 0;
+        max-width: 38ch;
+    }
+
+    &__icon {
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(155deg, $rose-pale, $rose-principal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 22px rgba($rose-principal, .4);
+        transition: transform .3s $ease-out;
+
+        &:hover { transform: translateY(-3px) scale(1.05); }
+
+        svg {
+            width: 24px;
+            height: 24px;
+            stroke: #fff;
+        }
+    }
+}
+
+// ── Form wrapper (card + decorative blocks) ───────────────────────────────────
+.contact-form-wrapper {
+    display: flex;
+    align-items: stretch;
+    padding: 0 5% 5rem;
+    gap: 0;
+    animation: fade-up .7s $ease-out .1s both;
+}
+
+// Blocs décoratifs latéraux
+.blockRouge {
+    width: $block-rouge-w;
+    min-height: 100%;
+    background: linear-gradient(180deg, $rouge-cta, color.adjust($rouge-cta, $lightness: -8%));
+    flex-shrink: 0;
+    border-radius: 0;
+
+    &--gauche { border-radius: $radius-card 0 0 $radius-card; }
+    &--droite  { border-radius: 0 $radius-card $radius-card 0; }
+}
+
+// ── White card ────────────────────────────────────────────────────────────────
+.contact-card {
+    flex: 1;
+    background: $blanc;
+    box-shadow: $shadow-lg;
+    padding: 2.75rem 3.2rem;
+
+    &__title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: $texte-body;
+        text-align: center;
+        margin: 0 0 2.1rem;
+    }
+}
+
+// ── Form internals ────────────────────────────────────────────────────────────
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+
+    &__row {
+        display: flex;
+        gap: 1.35rem;
+
+        .contact-form__field { flex: 1; }
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    &__label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: $rose-principal;
+        letter-spacing: 0.01em;
+    }
+
+    &__input,
+    &__textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.7rem 0.95rem;
+        border: 1.5px solid #e4ddd6;
+        border-radius: $radius-input;
+        font-size: 0.9rem;
+        color: $texte-body;
+        background: $creme-pale;
+        transition: border-color .25s, box-shadow .25s, background .25s;
+
+        &::placeholder { color: #b3a89e; }
+
+        &:focus {
+            outline: none;
+            border-color: $rose-principal;
+            background: $blanc;
+            box-shadow: 0 0 0 4px rgba($rose-principal, 0.14);
+        }
+    }
+
+    &__textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    &__submit {
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        padding: 0.7rem 2.1rem;
+        background: $rose-principal;
+        color: $blanc;
+        border: none;
+        border-radius: 24px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        letter-spacing: .02em;
+        cursor: pointer;
+        box-shadow: 0 8px 22px rgba($rose-principal, .32);
+        transition: background .25s, transform .25s, box-shadow .25s;
+
+        &:hover  {
+            background: $rose-sombre;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba($rose-principal, .42);
+        }
+        &:active { background: $rouge-cta; transform: scale(.97); }
+        &:focus-visible {
+            outline: 2px solid $or;
+            outline-offset: 3px;
+        }
+    }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+    .contact-hero {
+        gap: 3.5rem;
+        padding: 4rem 5% 2.5rem;
+    }
+    .contact-card { padding: 2.2rem 2.4rem; }
+    .contact-section { background-attachment: scroll; }
+}
+
+@media (max-width: 860px) {
+    .contact-hero {
+        flex-direction: column;
+        gap: 2rem;
+
+        &__right { flex-direction: column; }
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-hero {
+        padding: 2.75rem 1.25rem 2rem;
+    }
+
+    .blockRouge { display: none; }
+
+    .contact-form-wrapper { padding: 0 1.25rem 3.5rem; }
+
+    .contact-card { padding: 1.9rem 1.4rem; border-radius: $radius-card; }
+
+    .contact-form__row { flex-direction: column; gap: 1.1rem; }
+}
+
+@media (max-width: 480px) {
+    .contact-hero__title { font-size: clamp(1.6rem, 8vw, 2rem); }
+    .contact-card__title { font-size: 1.2rem; }
+    .contact-form__submit { width: 100%; justify-content: center; }
+}

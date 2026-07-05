@@ -1,0 +1,217 @@
+// ═══════════════════════════════════════════════════════
+// LIA CUISINE — not-found.scss
+// Page 404 dans le thème rose-rouge du restaurant
+// ═══════════════════════════════════════════════════════
+@use "sass:color";
+
+$rose-principal: #C8566B;
+$rose-sombre:    #B54660;
+$rouge-cta:      #B03050;
+$or:             #C49A1A;
+$blanc:          #FFFFFF;
+$creme-pale:     #FAF7F2;
+$texte-body:     #2E2520;
+$texte-dim-clair: rgba(46, 37, 32, 0.72);
+
+// ════════════════════════════════════════════════════════
+// CONTENEUR PRINCIPAL
+// ════════════════════════════════════════════════════════
+.not-found {
+    min-height: calc(100vh - 72px); // hauteur header déduite
+    background: $creme-pale;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+
+    // ── Décoration : grand "404" en filigrane derrière ──
+    &::before {
+        content: '404';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -55%);
+        font-size: clamp(16rem, 35vw, 28rem);
+        font-weight: 900;
+        letter-spacing: -0.05em;
+        color: rgba($rose-principal, 0.07);
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+        z-index: 0;
+    }
+
+    // ── Ligne décorative rose en haut ──────────────────
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, $rose-principal 0%, $or 50%, $rose-principal 100%);
+    }
+}
+
+// ════════════════════════════════════════════════════════
+// CARTE CENTRALE — fond blanc arrondi (même style que .about-split__text)
+// ════════════════════════════════════════════════════════
+.not-found__card {
+    position: relative;
+    z-index: 1;
+    background: $blanc;
+    border-radius: 8px;
+    padding: 4rem 4.5rem;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.08),
+        0 0 0 1.5px rgba($rose-principal, 0.12);
+
+    // Bordure supérieure rose signature (même motif que les .why-card)
+    border-top: 3px solid $rose-principal;
+}
+
+// ── Numéro 404 ─────────────────────────────────────────
+.not-found__code {
+    display: block;
+    font-size: clamp(4rem, 10vw, 6.5rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    // Dégradé rose → or comme les accents du site
+    background: linear-gradient(135deg, $rose-principal 30%, $or 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+// ── Icône assiette ─────────────────────────────────────
+.not-found__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    width: 64px;
+    height: 64px;
+    background: rgba($rose-principal, 0.08);
+    border-radius: 50%;
+    border: 1.5px solid rgba($rose-principal, 0.18);
+
+    svg {
+        width: 30px;
+        height: 30px;
+        stroke: $rose-principal;
+        stroke-width: 1.5;
+        fill: none;
+    }
+}
+
+// ── Titre ──────────────────────────────────────────────
+.not-found__title {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: $texte-body;
+    line-height: 1.15;
+    margin-bottom: 0.9rem;
+    letter-spacing: -0.01em;
+}
+
+// ── Texte descriptif ───────────────────────────────────
+.not-found__desc {
+    font-size: 0.92rem;
+    line-height: 1.78;
+    color: $texte-dim-clair;
+    margin-bottom: 2.25rem;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// ── Séparateur or discret ──────────────────────────────
+.not-found__divider {
+    width: 36px;
+    height: 2px;
+    background: $or;
+    margin: 0 auto 2rem;
+    border-radius: 2px;
+}
+
+// ── Boutons ────────────────────────────────────────────
+.not-found__actions {
+    display: flex;
+    gap: 0.85rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+// Bouton primaire plein rose
+.not-found__btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: $rose-principal;
+    color: $blanc;
+    border: 1.5px solid $rose-principal;
+    border-radius: 2px;
+    padding: 0.68rem 1.6rem;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.22s, box-shadow 0.22s;
+
+    &:hover {
+        background: $rose-sombre;
+        border-color: $rose-sombre;
+        box-shadow: 0 4px 16px rgba($rose-principal, 0.38);
+    }
+
+    &::before { content: '←'; font-size: 0.85rem; }
+}
+
+// Bouton secondaire outline
+.not-found__btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: transparent;
+    color: $texte-body;
+    border: 1.5px solid rgba($texte-body, 0.22);
+    border-radius: 2px;
+    padding: 0.68rem 1.6rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.22s, color 0.22s;
+
+    &:hover {
+        border-color: $rose-principal;
+        color: $rose-principal;
+    }
+
+    &::after { content: '→'; font-size: 0.85rem; }
+}
+
+// ── Mention "Retour à la cuisine" ──────────────────────
+.not-found__hint {
+    margin-top: 2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba($texte-body, 0.32);
+
+    span {
+        color: $rose-principal;
+        font-weight: 600;
+    }
+}

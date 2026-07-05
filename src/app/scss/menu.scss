@@ -1,0 +1,195 @@
+// ════════════════════════════════════════════════════════
+// MENU — page complète (v2 — refonte moderne, responsive)
+// ════════════════════════════════════════════════════════
+@use "sass:color";
+
+$rose-principal: #C8566B;
+$rose-sombre:    #B54660;
+$rose-pale:      #D4697C;
+$rouge-cta:      #B03050;
+$rouge-style1:   #A35559;
+$or:             #C49A1A;
+$blanc:          #FFFFFF;
+$creme-pale:     #FAF7F2;
+$texte-body:     #2E2520;
+$texte-dim-clair: rgba(46, 37, 32, 0.75);
+$texte-blanc:    rgba(255, 255, 255, 0.95);
+$texte-blanc-dim: rgba(255, 255, 255, 0.72);
+
+// ─── Échelle d'ombres + easing partagés ──────────────────
+$shadow-sm: 0 2px 10px rgba(46, 37, 32, .07);
+$shadow-md: 0 8px 28px rgba(46, 37, 32, .12);
+$shadow-lg: 0 20px 50px rgba(46, 37, 32, .18);
+$ease-out:  cubic-bezier(.22, 1, .36, 1);
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.specials {
+    position: relative;
+    padding: 6.5rem 3rem 6.5rem;
+    background: linear-gradient(to bottom, $blanc 52%, $rouge-cta 48%);
+
+    .specials__header {
+        text-align: center;
+        max-width: 780px;
+        margin: 0 auto 3.8rem;
+
+        h2 {
+            font-size: clamp(1.9rem, 3vw, 2.7rem);
+            font-weight: 700;
+            color: $texte-body;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.01em;
+        }
+        p {
+            font-size: 1.02rem;
+            line-height: 1.85;
+            color: $texte-dim-clair;
+        }
+    }
+
+    .specials__grid {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.4rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .dish-card {
+        background: $blanc;
+        border-radius: 8px;
+        overflow: visible;
+        box-shadow: $shadow-md;
+        transition: transform .3s $ease-out, box-shadow .3s $ease-out;
+        cursor: pointer;
+        animation: fade-up .6s $ease-out both;
+
+        &:nth-child(odd):hover  { transform: translateY(-9px) rotate(.5deg);  box-shadow: $shadow-lg; }
+        &:nth-child(even):hover { transform: translateY(-9px) rotate(-.5deg); box-shadow: $shadow-lg; }
+    }
+
+    // Décalage "polaroïd" — se répète tous les 4 éléments grâce à l'id cyclique
+    #dish-card1, #dish-card3 { margin-top: 40%; }
+    #dish-card2, #dish-card4 { margin-bottom: 30%; margin-top: 10%; }
+
+    .dish-card__img {
+        width: 88%;
+        margin: 0.9rem auto 0;
+        aspect-ratio: 1/1;
+        background: #e8ddd5;
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 3px 12px rgba(0,0,0,.1);
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, #ddd4c8, #e8ddd5);
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            transition: transform .5s $ease-out;
+        }
+        .dish-card:hover & img { transform: scale(1.06); }
+    }
+
+    .dish-card__body {
+        padding: 0.9rem 1.1rem 1.3rem;
+        text-align: center;
+
+        h4 { font-size: 0.94rem; font-weight: 700; color: $texte-body; margin-bottom: .3rem; }
+        p  { font-size: 0.80rem; color: $rose-principal; line-height: 1.55; font-style: italic; }
+    }
+
+    .specials__cta { text-align: center; margin-top: 3.5rem; }
+
+    .btn-voir-plus {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: $rose-principal;
+        color: #fff;
+        border: none;
+        border-radius: 24px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        padding: 0.85rem 2.7rem;
+        cursor: pointer;
+        font-family: inherit;
+        box-shadow: 0 6px 20px rgba($rose-principal, .35);
+        transition: background .25s, transform .25s, box-shadow .25s;
+        &:hover { background: $rose-sombre; transform: translateY(-2px); box-shadow: 0 12px 28px rgba($rose-principal, .45); }
+        &:active { transform: scale(.97); }
+    }
+
+    // ─── Responsive ────
+    @media (max-width: 1200px) {
+        .specials__grid { grid-template-columns: repeat(3, 1fr); }
+        #dish-card1, #dish-card2, #dish-card3, #dish-card4 { margin: 0; }
+    }
+    @media (max-width: 1024px) {
+        padding: 5rem 2rem 5.5rem;
+        .specials__header { margin-bottom: 3rem; }
+        .specials__grid { grid-template-columns: repeat(2, 1fr); gap: 1.6rem 1.2rem; }
+    }
+    @media (max-width: 640px) {
+        padding: 4rem 1.4rem 4.5rem;
+        .specials__header p { font-size: 0.92rem; }
+    }
+    @media (max-width: 480px) {
+        padding: 3.5rem 1.2rem 4rem;
+        .specials__grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+    }
+}
+
+// ─── Loading / Empty ───────────────────────────────────
+.specials-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 5.5rem 0;
+    color: $rose-principal;
+    grid-column: 1 / -1;
+
+    &__spinner {
+        width: 36px;
+        height: 36px;
+        animation: specials-spin .9s linear infinite;
+        filter: drop-shadow(0 4px 10px rgba($rose-principal, .3));
+    }
+
+    span {
+        font-size: 0.8rem;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: $texte-dim-clair;
+    }
+}
+
+.specials-empty {
+    text-align: center;
+    padding: 4.5rem 0;
+    font-size: 0.92rem;
+    color: $texte-dim-clair;
+    grid-column: 1 / -1;
+}
+
+@keyframes specials-spin {
+    to { transform: rotate(360deg); }
+}
