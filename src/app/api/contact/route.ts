@@ -1,18 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import {
+    isHoneypotTriggered,
+    validateContactPayload,
+} from '@/lib/contactValidation';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
+    let body: unknown;
 
-    const { prenom, nom, email, message } = await req.json();
-
-    if (!prenom || !nom || !email || !message) {
+    try {
+        body = await req.json();
+    } catch {
         return NextResponse.json(
-            { success: false, error: 'Tous les champs sont requis.' },
+            { success: false, error: 'Corps de requête invalide.' },
             { status: 400 }
         );
     }
+
+    if (isHoneypotTriggered(body)) {
+        return NextResponse.json({ success: true });
+    }
+
+    const validation = validateContactPayload(body);
+    if (!validation.ok) {
+        return NextResponse.json(
+            { success: false, error: validation.error },
+            { status: 400 }
+        );
+    }
+
+    const { prenom, nom, email, message } = validation.data;
 
     if (!process.env.RESEND_API_KEY || !process.env.MAIL_TO) {
         console.error('❌ Variables RESEND_API_KEY ou MAIL_TO manquantes dans .env.local');

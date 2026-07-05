@@ -24,3 +24,12 @@ body {
   color: darkblue;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}

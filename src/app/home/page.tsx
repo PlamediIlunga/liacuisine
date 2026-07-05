@@ -6,6 +6,7 @@ import DishCardComponent from '../component/DishCardComponent'
 import { DishItem } from '../types/DishItem'
 import menuBD from '../BD/menu.json'
 import { useState, useEffect } from "react";
+import { validateHomeForm } from '@/lib/contactValidation';
 import Image from "next/image";
 
 
@@ -16,9 +17,10 @@ interface HomeFormData {
     name: string;
     email: string;
     message: string;
+    website: string;
 }
 
-const INITIAL_HOME_FORM: HomeFormData = { name: '', email: '', message: '' };
+const INITIAL_HOME_FORM: HomeFormData = { name: '', email: '', message: '', website: '' };
 
 export default function Home() {
 
@@ -28,6 +30,7 @@ export default function Home() {
     // ── État du formulaire de contact ─────────────────────
     const [homeForm, setHomeForm] = useState<HomeFormData>(INITIAL_HOME_FORM);
     const [homeFormState, setHomeFormState] = useState<HomeFormState>('idle');
+    const [homeFormError, setHomeFormError] = useState<string | null>(null);
 
     useEffect(() => {
         const getDishes = async () => {
@@ -61,6 +64,20 @@ export default function Home() {
     // ── Soumission vers /api/contact ───────────────────────
     const handleHomeSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setHomeFormError(null);
+
+        const validation = validateHomeForm(
+            homeForm.name,
+            homeForm.email,
+            homeForm.message
+        );
+
+        if (!validation.ok) {
+            setHomeFormError(validation.error);
+            setHomeFormState('error');
+            return;
+        }
+
         setHomeFormState('loading');
 
         try {
@@ -68,10 +85,8 @@ export default function Home() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    prenom: homeForm.name,   // champ unique "nom complet"
-                    nom: '(accueil)',      // identifie que ça vient du formulaire home
-                    email: homeForm.email,
-                    message: homeForm.message,
+                    ...validation.data,
+                    website: homeForm.website,
                 }),
             });
 
@@ -81,6 +96,7 @@ export default function Home() {
                 setHomeFormState('success');
                 setHomeForm(INITIAL_HOME_FORM);
             } else {
+                setHomeFormError(result.error ?? null);
                 setHomeFormState('error');
             }
         } catch {
@@ -371,7 +387,7 @@ export default function Home() {
                             {/* Feedback erreur */}
                             {homeFormState === 'error' && (
                                 <p className="form-feedback form-feedback--error">
-                                    ✕ Une erreur est survenue. Réessayez ou appelez-nous.
+                                    ✕ {homeFormError ?? 'Une erreur est survenue. Réessayez ou appelez-nous.'}
                                 </p>
                             )}
 
@@ -407,6 +423,16 @@ export default function Home() {
                                     required
                                 />
                             </div>
+                            <input
+                                type="text"
+                                name="website"
+                                tabIndex={-1}
+                                autoComplete="off"
+                                aria-hidden="true"
+                                className="form-honeypot"
+                                value={homeForm.website}
+                                onChange={handleHomeChange}
+                            />
                             <button
                                 type="submit"
                                 className="btn-form"

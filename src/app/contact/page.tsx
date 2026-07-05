@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { validateContactPayload } from '@/lib/contactValidation';
 import '../scss/contact.scss';
 
 // ─── Types ────────────────────────────────────────────────
@@ -11,6 +12,7 @@ interface FormData {
     nom:     string;
     email:   string;
     message: string;
+    website: string;
 }
 
 const INITIAL_FORM: FormData = {
@@ -18,12 +20,14 @@ const INITIAL_FORM: FormData = {
     nom:     '',
     email:   '',
     message: '',
+    website: '',
 };
 
 // ─── Composant ────────────────────────────────────────────
 export default function Contact() {
     const [formData, setFormData]   = useState<FormData>(INITIAL_FORM);
     const [formState, setFormState] = useState<FormState>('idle');
+    const [formError, setFormError] = useState<string | null>(null);
 
     // ── Mise à jour des champs ─────────────────────────────
     const handleChange = (
@@ -36,17 +40,31 @@ export default function Contact() {
     // ── Soumission ────────────────────────────────────────
     const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setFormError(null);
+
+        const validation = validateContactPayload({
+            prenom:  formData.prenom,
+            nom:     formData.nom,
+            email:   formData.email,
+            message: formData.message,
+            website: formData.website,
+        });
+
+        if (!validation.ok) {
+            setFormError(validation.error);
+            setFormState('error');
+            return;
+        }
+
         setFormState('loading');
 
         try {
-            const response = await fetch('/api/contact', {  // ← route API interne
+            const response = await fetch('/api/contact', {
                 method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    prenom:  formData.prenom,   // ← uniquement les données du formulaire
-                    nom:     formData.nom,       //   la clé Web3Forms reste côté serveur
-                    email:   formData.email,
-                    message: formData.message,
+                    ...validation.data,
+                    website: formData.website,
                 }),
             });
 
@@ -56,6 +74,7 @@ export default function Contact() {
                 setFormState('success');
                 setFormData(INITIAL_FORM);
             } else {
+                setFormError(result.error ?? null);
                 setFormState('error');
             }
         } catch {
@@ -119,7 +138,7 @@ export default function Contact() {
                             <span className="contact-feedback__icon">✕</span>
                             <div>
                                 <strong>Une erreur est survenue.</strong>
-                                <p>Veuillez réessayer ou nous appeler au (819) 576-4927.</p>
+                                <p>{formError ?? 'Veuillez réessayer ou nous appeler au (819) 576-4927.'}</p>
                             </div>
                         </div>
                     )}
@@ -200,6 +219,17 @@ export default function Contact() {
                                 disabled={formState === 'loading'}
                             />
                         </div>
+
+                        <input
+                            type="text"
+                            name="website"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            aria-hidden="true"
+                            className="form-honeypot"
+                            value={formData.website}
+                            onChange={handleChange}
+                        />
 
                         <button
                             className="contact-form__submit"
