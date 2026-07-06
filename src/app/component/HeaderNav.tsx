@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const NAV_LINKS = [
     { href: '/home',      label: 'Accueil' },
@@ -14,13 +14,33 @@ const NAV_LINKS = [
 
 export default function HeaderNav() {
     const [open, setOpen] = useState(false);
+    const scrollY = useRef(0);
 
     const close = () => setOpen(false);
     const toggle = () => setOpen(prev => !prev);
 
+    // Verrouillage de scroll fiable pour iOS Safari
     useEffect(() => {
-        document.body.classList.toggle('nav-open', open);
-        return () => document.body.classList.remove('nav-open');
+        if (open) {
+            scrollY.current = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY.current}px`;
+            document.body.style.width = '100%';
+            document.body.classList.add('nav-open');
+        } else {
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.classList.remove('nav-open');
+            window.scrollTo(0, scrollY.current);
+        }
+
+        return () => {
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.classList.remove('nav-open');
+        };
     }, [open]);
 
     useEffect(() => {
