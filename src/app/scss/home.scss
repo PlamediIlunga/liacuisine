@@ -8,7 +8,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-html, body { height: 100%; width: 100%; -webkit-font-smoothing: antialiased; }
+html, body { height: 100%; width: 100%; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 body { font-family: 'Anek Gujarati', 'Arya', sans-serif; color: $texte-body; overflow-x: hidden; }
 ul { list-style: none; }
 a  { text-decoration: none; color: inherit; }
@@ -112,12 +112,15 @@ img { max-width: 100%; display: block; }
     background-attachment: scroll;
     display: flex;
     align-items: center;
+    justify-content: flex-start; // ancrage explicite à gauche, jamais de centrage ambigu
 
     .hero__content {
         position: relative;
         z-index: 2;
+        width: 100%;
         padding: 0 8%;
         max-width: 780px;
+        text-align: left; // forcé, quel que soit l'appareil
         animation: fade-up .8s $ease-out both;
     }
 
@@ -169,26 +172,41 @@ img { max-width: 100%; display: block; }
         .badge__range { font-size: 0.68rem; color: rgba(#fff, .72); margin-top: 2px; }
     }
 
+    // ── Tablette ──
     @media (max-width: $bp-tablet) {
         height: auto;
         min-height: 640px;
         padding: 7rem 0 4rem;
         .hero__badge { top: 1.4rem; right: 1.4rem; padding: .7rem 1rem; }
     }
+
+    // ── Mobile : badge passe en statique dès ici (plus de chevauchement) ──
     @media (max-width: $bp-mobile) {
-        .hero__content { padding: 0 6%; max-width: 100%; }
-        .hero__title   { font-size: clamp(2.1rem, 8vw, 2.8rem); }
-        .hero__subtitle { max-width: 100%; font-size: .94rem; }
-    }
-    @media (max-width: $bp-small) {
         min-height: 560px;
+        padding: 6.5rem 0 3rem;
+
+        .hero__content { padding: 0 6%; max-width: 100%; text-align: left; }
+        .hero__title    { font-size: clamp(2.1rem, 8vw, 2.8rem); }
+        .hero__subtitle { max-width: 100%; font-size: .94rem; margin-bottom: 1.8rem; }
+
         .hero__badge {
             position: static;
-            margin: 0 6% 2rem;
+            margin: 0 6% 1.4rem;
             width: fit-content;
             animation: none;
         }
-        .hero__actions { width: 100%; .btn { flex: 1; justify-content: center; } }
+    }
+
+    // ── Petit mobile ──
+    @media (max-width: $bp-small) {
+        min-height: 480px;
+        padding: 6rem 0 2.5rem;
+
+        .hero__content  { text-align: left; }
+        .hero__title    { font-size: clamp(1.9rem, 9vw, 2.4rem); margin-bottom: .8rem; }
+        .hero__subtitle { font-size: .88rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .hero__actions  { width: 100%; .btn { flex: 1; justify-content: center; padding: .65rem 1rem; } }
+        .hero__badge    { margin: 0 6% 1.2rem; }
     }
 }
 
@@ -249,6 +267,7 @@ img { max-width: 100%; display: block; }
         justify-content: center;
         border-radius: 10px;
         box-shadow: $shadow-md;
+        text-align: left;
 
         h3 { font-size: 1.7rem; font-weight: 700; color: $texte-body; margin-bottom: 0.9rem; line-height: 1.2; }
         p  { font-size: 0.92rem; line-height: 1.8; color: $texte-dim-clair; margin-bottom: 1.7rem; }
@@ -280,9 +299,19 @@ img { max-width: 100%; display: block; }
     }
     @media (max-width: $bp-mobile) {
         .features__grid { padding: 6% 6%; }
-        .feature-row { grid-template-columns: 1fr; min-height: auto; }
-        .feature-card__img { min-height: 220px; }
-        .feature-card__body { padding: 2rem 1.6rem; }
+        .feature-row { grid-template-columns: 1fr; min-height: auto; gap: 0; margin-bottom: .8rem; }
+        .feature-card__img { min-height: 200px; border-radius: 8px 8px 0 0; }
+        .feature-card__body {
+            padding: 1.6rem 1.4rem;
+            border-radius: 0 0 8px 8px;
+            h3 { font-size: 1.2rem; margin-bottom: .6rem; }
+            p  { font-size: .85rem; line-height: 1.65; margin-bottom: 1.1rem; }
+        }
+    }
+    @media (max-width: $bp-small) {
+        .features__grid { padding: 8% 5%; }
+        .feature-card__img { min-height: 170px; }
+        .feature-card__body { padding: 1.3rem 1.1rem; }
     }
 }
 
@@ -317,7 +346,6 @@ img { max-width: 100%; display: block; }
         box-shadow: $shadow-md;
         transition: transform .3s $ease-out, box-shadow .3s $ease-out;
         cursor: pointer;
-        animation: fade-up .6s $ease-out both;
 
         @media (hover: hover) {
             &:nth-child(odd):hover  { transform: translateY(-9px) rotate(.5deg); }
@@ -376,9 +404,14 @@ img { max-width: 100%; display: block; }
         .specials__grid { grid-template-columns: repeat(2, 1fr); gap: 1.6rem 1.2rem; }
         #dish-card1, #dish-card2, #dish-card3, #dish-card4 { margin: 0; }
     }
+    @media (max-width: $bp-mobile) {
+        padding: 3.5rem 1.5rem 4rem;
+        .specials__header { margin-bottom: 2.2rem; }
+        .dish-card__body { padding: .7rem .9rem 1rem; h4 { font-size: .86rem; } p { font-size: .74rem; } }
+    }
     @media (max-width: $bp-small) {
-        padding: 3.5rem 1.2rem 4.5rem;
-        .specials__grid { grid-template-columns: 1fr; max-width: 340px; }
+        padding: 3rem 1.2rem 3.5rem;
+        .specials__grid { grid-template-columns: 1fr; max-width: 300px; gap: 1.2rem; }
     }
 }
 
@@ -404,7 +437,6 @@ img { max-width: 100%; display: block; }
 
     .about-split__img-wrap { position: relative; margin-bottom: -4rem; z-index: 2; }
 
-    // ── Carrousel : prend la place visuelle de l'ancien .img-main ──
     .about-split__carousel {
         position: relative;
         display: block;
@@ -423,7 +455,6 @@ img { max-width: 100%; display: block; }
         height: 100%;
     }
 
-    // Forcer CadreImageComponent (conçu pour une grille) à remplir le slide
     .about-split__carousel {
         .galerie-card {
             width: 100%;
@@ -446,7 +477,6 @@ img { max-width: 100%; display: block; }
                 inset: 0;
             }
         }
-        // On masque le titre/description de la galerie ici (pas pertinent en carrousel)
         .galerie-card__overlay { display: none; }
     }
 
@@ -528,6 +558,7 @@ img { max-width: 100%; display: block; }
         background: $blanc;
         border-radius: 10px;
         padding: 2.5rem 2.5rem 2.5rem 1.5rem;
+        text-align: left;
 
         h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 700; line-height: 1.18; color: $texte-body; margin-bottom: 1.1rem; }
         p  { font-size: 0.93rem; line-height: 1.85; color: $texte-dim-clair; margin-bottom: .9rem; &:last-of-type { margin-bottom: 1.8rem; } }
@@ -576,14 +607,21 @@ img { max-width: 100%; display: block; }
         .about-split__text  { padding: 2rem 2rem 2rem 1rem; }
     }
     @media (max-width: $bp-mobile) {
-        .about-split__inner   { grid-template-columns: 1fr; padding: 5rem 0 3rem; gap: 3rem; }
-        .about-split__img-wrap { margin-bottom: 0; max-width: 340px; margin: 0 auto; }
-        .about-split__text     { padding: 0 .5rem; }
-        .img-badge             { right: 0; bottom: -1.5rem; }
+        .about-split__inner    { grid-template-columns: 1fr; padding: 3.5rem 0 2.5rem; gap: 2.2rem; }
+        .about-split__img-wrap { margin-bottom: 0; max-width: 300px; margin-left: auto; margin-right: auto; }
+        .about-split__text     {
+            padding: 0 .5rem;
+            text-align: left;
+            h2 { font-size: 1.5rem; margin-bottom: .8rem; }
+            p  { font-size: .87rem; line-height: 1.7; margin-bottom: .7rem; &:last-of-type { margin-bottom: 1.3rem; } }
+        }
+        .review-quote { padding: .8rem 1rem; margin: .8rem 0; }
+        .img-badge { right: 0; bottom: -1.5rem; width: 96px; height: 96px; }
     }
     @media (max-width: $bp-small) {
         padding: 0 1.2rem;
         .about-split__text { padding: 0; }
+        .about-split__img-wrap { max-width: 240px; }
     }
 }
 
@@ -649,8 +687,14 @@ img { max-width: 100%; display: block; }
     }
 
     @media (max-width: $bp-tablet) { padding: 5rem 2rem 3rem; .why-us__grid { gap: 1.3rem; } }
-    @media (max-width: $bp-mobile) { .why-us__grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
-    @media (max-width: $bp-small)  { padding: 4rem 1.2rem 2.5rem; }
+    @media (max-width: $bp-mobile) {
+        padding: 3.5rem 1.5rem 2.5rem;
+        .why-us__header { margin-bottom: 2.2rem; h2 { font-size: 1.5rem; } p { font-size: .85rem; } }
+        .why-us__grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; gap: 1.1rem; }
+        .why-card { padding: 1.8rem 1.5rem 1.5rem; }
+        .why-card__icon { width: 46px; height: 46px; margin-bottom: 1rem; svg { width: 20px; height: 20px; } }
+    }
+    @media (max-width: $bp-small) { padding: 3rem 1.2rem 2rem; }
 }
 
 // ════════════════════════════════════════════════════════
@@ -714,8 +758,7 @@ img { max-width: 100%; display: block; }
             border: 1px solid rgba(#fff, .25);
             border-radius: 6px;
             padding: .8rem 1rem;
-            font-size: 0.88rem;
-            font-size: max(16px, 0.88rem); // anti-zoom iOS
+            font-size: max(16px, 0.88rem);
             color: #fff;
             outline: none;
             font-family: inherit;
@@ -743,7 +786,6 @@ img { max-width: 100%; display: block; }
             @media (hover: hover) { &:hover { background: color.adjust($rouge-cta, $lightness: -8%); transform: translateY(-2px); } }
         }
 
-        // Feedbacks formulaire home
         .form-feedback--success { color: #a8f0c6; font-size: 0.85rem; margin-bottom: 1rem; font-weight: 600; }
         .form-feedback--error   { color: #fdb4b4; font-size: 0.85rem; margin-bottom: 1rem; font-weight: 600; }
     }
@@ -767,11 +809,37 @@ img { max-width: 100%; display: block; }
         .contact-band__bottom { gap: 2.5rem; }
     }
     @media (max-width: $bp-mobile) {
-        .contact-band__bottom   { grid-template-columns: 1fr; }
-        .contact-band__heading  { font-size: 0.85rem; margin-bottom: 2.2rem; }
+        padding: 3rem 1.5rem 3.5rem;
+        .contact-band__heading { font-size: .85rem; margin-bottom: 2rem; }
+        .contact-band__infos   { margin-bottom: 1.8rem; padding-bottom: 1.8rem; }
+        .contact-band__bottom  { grid-template-columns: 1fr; gap: 2rem; }
+        .map-frame { aspect-ratio: 4/3; }
     }
     @media (max-width: $bp-small) {
-        padding: 3.5rem 1.2rem 4rem;
-        .contact-band__infos { grid-template-columns: 1fr; }
+        padding: 2.5rem 1.2rem 3rem;
+        .contact-band__infos { grid-template-columns: 1fr; gap: 1.4rem; }
     }
+}
+
+// ════════════════════════════════════════════════════════
+// 7. REVEAL ANIMATIONS AU SCROLL
+// ════════════════════════════════════════════════════════
+.reveal {
+    opacity: 0;
+    transition: opacity .7s cubic-bezier(.22,.9,.32,1), transform .7s cubic-bezier(.22,.9,.32,1);
+    will-change: opacity, transform;
+
+    &--up    { transform: translateY(32px); }
+    &--left  { transform: translateX(-45px); }
+    &--right { transform: translateX(45px); }
+    &--zoom  { transform: scale(.93); }
+
+    &.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }

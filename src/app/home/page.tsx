@@ -1,4 +1,4 @@
-// app/home/page.tsx — LIA CUISINE (v5 — fidèle maquette, palette rose-rouge)
+// app/home/page.tsx — LIA CUISINE (v6 — mobile ajusté + animations au scroll)
 "use client"
 import "../scss/home.scss";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import Image from "next/image";
 import CadreImageComponent from '../component/CadreImageComponent'
 import { CadreImageItem } from '../types/CadreImageItem'
 import galerieBD from '../BD/galerie.json'
+import Reveal from '../component/Reveal'
 
 
 // ─── Types ────────────────────────────────────────────────
@@ -30,7 +31,6 @@ export default function Home() {
     const [dishes, setDishes] = useState<DishItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // ── État du formulaire de contact ─────────────────────
     const [homeForm, setHomeForm] = useState<HomeFormData>(INITIAL_HOME_FORM);
     const [homeFormState, setHomeFormState] = useState<HomeFormState>('idle');
     const [homeFormError, setHomeFormError] = useState<string | null>(null);
@@ -56,7 +56,6 @@ export default function Home() {
         getDishes();
     }, []);
 
-    // ── Mise à jour des champs ─────────────────────────────
     const handleHomeChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -64,7 +63,6 @@ export default function Home() {
         setHomeForm(prev => ({ ...prev, [name]: value }));
     };
 
-    // ── Soumission vers /api/contact ───────────────────────
     const handleHomeSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         setHomeFormError(null);
@@ -122,35 +120,36 @@ export default function Home() {
         <div className="home-page">
 
             {/* ══════════════════════════════════════════
-          1. HERO — fond image sombre, texte gauche
-             Badge Google Maps flottant haut-droite
+          1. HERO
       ══════════════════════════════════════════ */}
             <section className="hero">
 
-                <div className="hero__badge">
+                <Reveal variant="up" className="hero__badge">
                     <div className="badge__stars">
                         <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                     </div>
                     <div className="badge__score">4,6</div>
                     <div className="badge__count">231 avis Google</div>
                     <div className="badge__range">20–30 $ / personne</div>
-                </div>
+                </Reveal>
 
                 <div className="hero__content">
-                    <p className="section-eyebrow hero__eyebrow">Cuisine africaine authentique</p>
-                    <h1 className="hero__title">
-                        L'Art Culinaire<br />
-                        <em>Congolaise</em>
-                    </h1>
-                    <p className="hero__subtitle">
-                        Une expérience gastronomique unique au cœur de Gatineau —
-                        saveurs d'Afrique centrale, ambiance chaleureuse,
-                        recettes transmises de génération en génération.
-                    </p>
-                    <div className="hero__actions">
-                        <Link href="https://www.ubereats.com/store-browse-uuid/983bca0c-a802-43fc-b484-48c1024f5b15?diningMode=DELIVERY" className="btn btn--rouge-plein">Commander</Link>
-                        <Link href="/menu" className="btn btn--outline-blanc">Menu</Link>
-                    </div>
+                    <Reveal variant="up" delay={100}>
+                        <p className="section-eyebrow hero__eyebrow">Cuisine africaine authentique</p>
+                        <h1 className="hero__title">
+                            L'Art Culinaire<br />
+                            <em>Congolaise</em>
+                        </h1>
+                        <p className="hero__subtitle">
+                            Une expérience gastronomique unique au cœur de Gatineau —
+                            saveurs d'Afrique centrale, ambiance chaleureuse,
+                            recettes transmises de génération en génération.
+                        </p>
+                        <div className="hero__actions">
+                            <Link href="https://www.ubereats.com/store-browse-uuid/983bca0c-a802-43fc-b484-48c1024f5b15?diningMode=DELIVERY" className="btn btn--rouge-plein">Commander</Link>
+                            <Link href="/menu" className="btn btn--outline-blanc">Menu</Link>
+                        </div>
+                    </Reveal>
                 </div>
             </section>
 
@@ -161,7 +160,7 @@ export default function Home() {
                 <div className="features__grid">
 
                     <div className="feature-row">
-                        <div className="feature-card__img">
+                        <Reveal variant="zoom" className="feature-card__img">
                             <Image
                                 src="/image/images_1.jpg"
                                 alt="La salle Lia Cuisine"
@@ -169,8 +168,8 @@ export default function Home() {
                                 sizes="(max-width: 768px) 100vw, 50vw"
                                 style={{ objectFit: 'cover' }}
                             />
-                        </div>
-                        <div className="feature-card__body" id="feature-card__body_right">
+                        </Reveal>
+                        <Reveal variant="right" delay={120} className="feature-card__body" >
                             <h3>Une salle où il fait bon se retrouver</h3>
                             <p>
                                 Décorée avec soin, notre salle allie chaleur africaine et
@@ -181,11 +180,11 @@ export default function Home() {
                             <Link href="/galerie" className="feature-cta">
                                 Apprendre encore plus
                             </Link>
-                        </div>
+                        </Reveal>
                     </div>
 
                     <div className="feature-row">
-                        <div className="feature-card__body" id="feature-card__body_left">
+                        <Reveal variant="left" className="feature-card__body" >
                             <h3>Des saveurs qui traversent les frontières</h3>
                             <p>
                                 Chaque plat est préparé avec des épices soigneusement
@@ -196,8 +195,8 @@ export default function Home() {
                             <Link href="/menu" className="btn--lien-rose">
                                 Apprendre encore plus
                             </Link>
-                        </div>
-                        <div className="feature-card__img">
+                        </Reveal>
+                        <Reveal variant="zoom" delay={120} className="feature-card__img">
                             <Image
                                 src="/image/lia-cuisine-food2.jpg"
                                 alt="Nos plats maison"
@@ -205,7 +204,7 @@ export default function Home() {
                                 sizes="(max-width: 768px) 100vw, 50vw"
                                 style={{ objectFit: 'cover' }}
                             />
-                        </div>
+                        </Reveal>
                     </div>
 
                 </div>
@@ -215,13 +214,17 @@ export default function Home() {
           3. PLATS SPÉCIAUX
       ══════════════════════════════════════════ */}
             <section className="specials">
-                <div className="specials__header">
-                    <h2>Nos plats spéciaux</h2>
-                </div>
+                <Reveal variant="up">
+                    <div className="specials__header">
+                        <h2>Nos plats spéciaux</h2>
+                    </div>
+                </Reveal>
 
                 <div className="specials__grid">
                     {(menuBD as DishItem[]).slice(0, 4).map((dish, index) => (
-                        <DishCardComponent key={index} dish={dish} index={index} />
+                        <Reveal key={index} variant="up" delay={index * 100}>
+                            <DishCardComponent dish={dish} index={index} />
+                        </Reveal>
                     ))}
                 </div>
 
@@ -234,287 +237,298 @@ export default function Home() {
           4. ABOUT SPLIT
       ══════════════════════════════════════════ */}
             <section className="about-split">
-            <div className="about-split__inner">
+                <div className="about-split__inner">
 
-                <div className="about-split__img-wrap">
-                    <Link href="/galerie" className="about-split__carousel" aria-label="Voir la galerie">
-                        <div className="carousel__slide">
-                            <CadreImageComponent
-                                cadreImage={CAROUSEL_IMAGES[currentSlide]}
-                                index={currentSlide + 1}
-                            />
-                        </div>
-
-                        <button
-                            type="button"
-                            className="carousel__btn carousel__btn--prev"
-                            aria-label="Image précédente"
-                            onClick={e => {
-                                e.preventDefault();
-                                setCurrentSlide(prev => (prev - 1 + CAROUSEL_IMAGES.length) % CAROUSEL_IMAGES.length);
-                            }}
-                        >
-                            ‹
-                        </button>
-
-                        <button
-                            type="button"
-                            className="carousel__btn carousel__btn--next"
-                            aria-label="Image suivante"
-                            onClick={e => {
-                                e.preventDefault();
-                                setCurrentSlide(prev => (prev + 1) % CAROUSEL_IMAGES.length);
-                            }}
-                        >
-                            ›
-                        </button>
-
-                        <div className="carousel__dots">
-                            {CAROUSEL_IMAGES.map((_, i) => (
-                                <button
-                                    key={i}
-                                    type="button"
-                                    className={`carousel__dot${i === currentSlide ? ' carousel__dot--active' : ''}`}
-                                    aria-label={`Aller à l'image ${i + 1}`}
-                                    onClick={e => {
-                                        e.preventDefault();
-                                        setCurrentSlide(i);
-                                    }}
+                    <Reveal variant="left" className="about-split__img-wrap">
+                        <Link href="/galerie" className="about-split__carousel" aria-label="Voir la galerie">
+                            <div className="carousel__slide">
+                                <CadreImageComponent
+                                    cadreImage={CAROUSEL_IMAGES[currentSlide]}
+                                    index={currentSlide + 1}
                                 />
-                            ))}
+                            </div>
+
+                            <button
+                                type="button"
+                                className="carousel__btn carousel__btn--prev"
+                                aria-label="Image précédente"
+                                onClick={e => {
+                                    e.preventDefault();
+                                    setCurrentSlide(prev => (prev - 1 + CAROUSEL_IMAGES.length) % CAROUSEL_IMAGES.length);
+                                }}
+                            >
+                                ‹
+                            </button>
+
+                            <button
+                                type="button"
+                                className="carousel__btn carousel__btn--next"
+                                aria-label="Image suivante"
+                                onClick={e => {
+                                    e.preventDefault();
+                                    setCurrentSlide(prev => (prev + 1) % CAROUSEL_IMAGES.length);
+                                }}
+                            >
+                                ›
+                            </button>
+
+                            <div className="carousel__dots">
+                                {CAROUSEL_IMAGES.map((_, i) => (
+                                    <button
+                                        key={i}
+                                        type="button"
+                                        className={`carousel__dot${i === currentSlide ? ' carousel__dot--active' : ''}`}
+                                        aria-label={`Aller à l'image ${i + 1}`}
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            setCurrentSlide(i);
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        </Link>
+
+                        <div className="img-badge">
+                            <strong>4,6</strong>
+                            <span className="badge-label">sur Google</span>
+                            <span className="badge-count">233 avis</span>
                         </div>
-                    </Link>
+                    </Reveal>
 
-                    <div className="img-badge">
-                        <strong>4,6</strong>
-                        <span className="badge-label">sur Google</span>
-                        <span className="badge-count">233 avis</span>
-                    </div>
-                </div>
-
-                <div className="about-split__text">
-                    <h2>
-                        Découvrez les moments<br />
-                        mémorables de la<br />
-                        famille <em>Lia Cuisine</em>
-                    </h2>
-                    <p>
-                        Depuis notre ouverture au 693 Bd Saint-Joseph à Gatineau, Lia Cuisine
-                        fait découvrir la richesse de la cuisine congolaise dans une ambiance
-                        chaleureuse et familiale. Chaque plat, du poulet mayo au poisson salé,
-                        est préparé avec des recettes authentiques transmises de génération
-                        en génération.
-                    </p>
-                    <p>
-                        Nos 233 avis Google et notre note de 4,6★ témoignent de la confiance
-                        que nos clients nous accordent, repas après repas, pour environ
-                        20 à 30$ par personne.
-                    </p>
-
-                    <Link href="/galerie" className="btn-about">
-                        En savoir plus
-                    </Link>
-                </div>
-
-            </div>
-        </section>
-
-            {/* ══════════════════════════════════════════
-          5. WHY US
-      ══════════════════════════════════════════ */}
-            <section className="why-us">
-                <div className="why-us__header">
-                    <h2>Pourquoi choisir Lia Cuisine</h2>
-                    <p>
-                        Une cuisine authentique préparée avec passion, des ingrédients frais
-                        sélectionnés chaque jour et l'héritage culinaire du Congo au cœur
-                        de chaque assiette.
-                    </p>
-                </div>
-
-                <div className="why-us__grid">
-
-                    <div className="why-card">
-                        <div className="why-card__icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                            </svg>
-                        </div>
-                        <h3 className="why-card__title">Saveur Congolaise</h3>
-                        <p className="why-card__desc">
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
+                    <Reveal variant="right" delay={150} className="about-split__text">
+                        <h2>
+                            Découvrez les moments<br />
+                            mémorables de la<br />
+                            famille <em>Lia Cuisine</em>
+                        </h2>
+                        <p>
+                            Depuis notre ouverture au 693 Bd Saint-Joseph à Gatineau, Lia Cuisine
+                            fait découvrir la richesse de la cuisine congolaise dans une ambiance
+                            chaleureuse et familiale. Chaque plat, du poulet mayo au poisson salé,
+                            est préparé avec des recettes authentiques transmises de génération
+                            en génération.
                         </p>
-                        <Link href="/menu" className="why-card__link">Gagne Plus</Link>
-                    </div>
-
-                    <div className="why-card">
-                        <div className="why-card__icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                            </svg>
-                        </div>
-                        <h3 className="why-card__title">Produit Frais</h3>
-                        <p className="why-card__desc">
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
+                        <p>
+                            Nos 233 avis Google et notre note de 4,6★ témoignent de la confiance
+                            que nos clients nous accordent, repas après repas, pour environ
+                            20 à 30$ par personne.
                         </p>
-                        <Link href="/menu" className="why-card__link">Gagne Plus</Link>
-                    </div>
 
-                    <div className="why-card">
-                        <div className="why-card__icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            </svg>
-                        </div>
-                        <h3 className="why-card__title">Ingrédients de Qualité</h3>
-                        <p className="why-card__desc">
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
-                        </p>
-                        <Link href="/menu" className="why-card__link">Gagne Plus</Link>
-                    </div>
+                        <Link href="/galerie" className="btn-about">
+                            En savoir plus
+                        </Link>
+                    </Reveal>
 
                 </div>
             </section>
 
             {/* ══════════════════════════════════════════
-          6. CONNECTONS-NOUS — formulaire branché sur /api/contact
+          5. WHY US
+      ══════════════════════════════════════════ */}
+            <section className="why-us">
+                <Reveal variant="up">
+                    <div className="why-us__header">
+                        <h2>Pourquoi choisir Lia Cuisine</h2>
+                        <p>
+                            Une cuisine authentique préparée avec passion, des ingrédients frais
+                            sélectionnés chaque jour et l'héritage culinaire du Congo au cœur
+                            de chaque assiette.
+                        </p>
+                    </div>
+                </Reveal>
+
+                <div className="why-us__grid">
+
+                    <Reveal variant="zoom" delay={0}>
+                        <div className="why-card">
+                            <div className="why-card__icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
+                            </div>
+                            <h3 className="why-card__title">Saveur Congolaise</h3>
+                            <p className="why-card__desc">
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
+                            </p>
+                            <Link href="/menu" className="why-card__link">Gagne Plus</Link>
+                        </div>
+                    </Reveal>
+
+                    <Reveal variant="zoom" delay={120}>
+                        <div className="why-card">
+                            <div className="why-card__icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                                </svg>
+                            </div>
+                            <h3 className="why-card__title">Produit Frais</h3>
+                            <p className="why-card__desc">
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
+                            </p>
+                            <Link href="/menu" className="why-card__link">Gagne Plus</Link>
+                        </div>
+                    </Reveal>
+
+                    <Reveal variant="zoom" delay={240}>
+                        <div className="why-card">
+                            <div className="why-card__icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                            <h3 className="why-card__title">Ingrédients de Qualité</h3>
+                            <p className="why-card__desc">
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
+                            </p>
+                            <Link href="/menu" className="why-card__link">Gagne Plus</Link>
+                        </div>
+                    </Reveal>
+
+                </div>
+            </section>
+
+            {/* ══════════════════════════════════════════
+          6. CONNECTONS-NOUS
       ══════════════════════════════════════════ */}
             <section className="contact-band">
                 <div className="contact-band__inner">
 
-                    <h2 className="contact-band__heading">Connectons-nous</h2>
+                    <Reveal variant="up">
+                        <h2 className="contact-band__heading">Connectons-nous</h2>
+                    </Reveal>
 
                     <div className="contact-band__infos">
 
-                        <div className="contact-info">
-                            <div className="contact-info__icon-wrap">
-                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                        <Reveal variant="up" delay={0}>
+                            <div className="contact-info">
+                                <div className="contact-info__icon-wrap">
+                                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                                </div>
+                                <p className="contact-info__label">Notre restaurant</p>
+                                <p className="contact-info__value">693 Bd Saint-Joseph<br />Gatineau, QC J8Y 4B4</p>
                             </div>
-                            <p className="contact-info__label">Notre restaurant</p>
-                            <p className="contact-info__value">693 Bd Saint-Joseph<br />Gatineau, QC J8Y 4B4</p>
-                        </div>
+                        </Reveal>
 
-                        <div className="contact-info">
-                            <div className="contact-info__icon-wrap">
-                                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                        <Reveal variant="up" delay={80}>
+                            <div className="contact-info">
+                                <div className="contact-info__icon-wrap">
+                                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                                </div>
+                                <p className="contact-info__label">Numéro de téléphone</p>
+                                <p className="contact-info__value"><a href="tel:+18195764927">(819) 576-4927</a></p>
                             </div>
-                            <p className="contact-info__label">Numéro de téléphone</p>
-                            <p className="contact-info__value"><a href="tel:+18195764927">(819) 576-4927</a></p>
-                        </div>
+                        </Reveal>
 
-                        <div className="contact-info">
-                            <div className="contact-info__icon-wrap">
-                                <svg viewBox="0 0 24 24"><path d="M3 2h18v20H3zM9 7h6M9 12h6M9 17h4" /></svg>
+                        <Reveal variant="up" delay={160}>
+                            <div className="contact-info">
+                                <div className="contact-info__icon-wrap">
+                                    <svg viewBox="0 0 24 24"><path d="M3 2h18v20H3zM9 7h6M9 12h6M9 17h4" /></svg>
+                                </div>
+                                <p className="contact-info__label">Services</p>
+                                <p className="contact-info__value">Repas sur place<br />À emporter · Livraison</p>
                             </div>
-                            <p className="contact-info__label">Services</p>
-                            <p className="contact-info__value">Repas sur place<br />À emporter · Livraison</p>
-                        </div>
+                        </Reveal>
 
-                        <div className="contact-info">
-                            <div className="contact-info__icon-wrap">
-                                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                        <Reveal variant="up" delay={240}>
+                            <div className="contact-info">
+                                <div className="contact-info__icon-wrap">
+                                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                                </div>
+                                <p className="contact-info__label">Poster</p>
+                                <p className="contact-info__value"><a href="mailto:bonjour@liacuisine.ca">bonjour@liacuisine.ca</a></p>
                             </div>
-                            <p className="contact-info__label">Poster</p>
-                            <p className="contact-info__value"><a href="mailto:bonjour@liacuisine.ca">bonjour@liacuisine.ca</a></p>
-                        </div>
+                        </Reveal>
 
                     </div>
 
                     <div className="contact-band__bottom">
 
-                        {/* ── Formulaire branché sur /api/contact ───── */}
-                        <form className="contact-form" onSubmit={handleHomeSubmit} noValidate>
-                            <h3>Des commentaires, suggestions</h3>
-                            <p className="form-subtitle">Disponible 24 heures sur 24 !</p>
+                        <Reveal variant="up">
+                            <form className="contact-form" onSubmit={handleHomeSubmit} noValidate>
+                                <h3>Des commentaires, suggestions</h3>
+                                <p className="form-subtitle">Disponible 24 heures sur 24 !</p>
 
-                            {/* Feedback succès */}
-                            {homeFormState === 'success' && (
-                                <p className="form-feedback form-feedback--success">
-                                    ✓ Message envoyé avec succès !
-                                </p>
-                            )}
+                                {homeFormState === 'success' && (
+                                    <p className="form-feedback form-feedback--success">
+                                        ✓ Message envoyé avec succès !
+                                    </p>
+                                )}
 
-                            {/* Feedback erreur */}
-                            {homeFormState === 'error' && (
-                                <p className="form-feedback form-feedback--error">
-                                    ✕ {homeFormError ?? 'Une erreur est survenue. Réessayez ou appelez-nous.'}
-                                </p>
-                            )}
+                                {homeFormState === 'error' && (
+                                    <p className="form-feedback form-feedback--error">
+                                        ✕ {homeFormError ?? 'Une erreur est survenue. Réessayez ou appelez-nous.'}
+                                    </p>
+                                )}
 
-                            <div className="form-group">
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Entrez votre nom"
+                                        value={homeForm.name}
+                                        onChange={handleHomeChange}
+                                        disabled={homeFormState === 'loading'}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder="Entrez votre adresse courriel"
+                                        value={homeForm.email}
+                                        onChange={handleHomeChange}
+                                        disabled={homeFormState === 'loading'}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <textarea
+                                        name="message"
+                                        placeholder="Entrez votre message"
+                                        value={homeForm.message}
+                                        onChange={handleHomeChange}
+                                        disabled={homeFormState === 'loading'}
+                                        required
+                                    />
+                                </div>
                                 <input
                                     type="text"
-                                    name="name"
-                                    placeholder="Entrez votre nom"
-                                    value={homeForm.name}
+                                    name="website"
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                    aria-hidden="true"
+                                    className="form-honeypot"
+                                    value={homeForm.website}
                                     onChange={handleHomeChange}
-                                    disabled={homeFormState === 'loading'}
-                                    required
                                 />
-                            </div>
-                            <div className="form-group">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Entrez votre adresse courriel"
-                                    value={homeForm.email}
-                                    onChange={handleHomeChange}
+                                <button
+                                    type="submit"
+                                    className="btn-form"
                                     disabled={homeFormState === 'loading'}
-                                    required
-                                />
-                            </div>
-                            <div className="form-group">
-                                <textarea
-                                    name="message"
-                                    placeholder="Entrez votre message"
-                                    value={homeForm.message}
-                                    onChange={handleHomeChange}
-                                    disabled={homeFormState === 'loading'}
-                                    required
-                                />
-                            </div>
-                            <input
-                                type="text"
-                                name="website"
-                                tabIndex={-1}
-                                autoComplete="off"
-                                aria-hidden="true"
-                                className="form-honeypot"
-                                value={homeForm.website}
-                                onChange={handleHomeChange}
-                            />
-                            <button
-                                type="submit"
-                                className="btn-form"
-                                disabled={homeFormState === 'loading'}
-                            >
-                                {homeFormState === 'loading' ? 'Envoi en cours…' : 'Soumettre'}
-                            </button>
-                        </form>
+                                >
+                                    {homeFormState === 'loading' ? 'Envoi en cours…' : 'Soumettre'}
+                                </button>
+                            </form>
+                        </Reveal>
 
-                        <div className="contact-map">
-                            <h3>Nous sommes ici</h3>
-                            <div className="map-hours">
-                                MAR.–MER. 11H30–22H00 / JEU. 12H00–22H00 / VEN. 11H30–23H00 / SAM. 12H00–23H00 / DIM. 11H00–21H00 / LUN. FERMÉ.
+                        <Reveal variant="up" delay={150}>
+                            <div className="contact-map">
+                                <h3>Nous sommes ici</h3>
+                                <div className="map-hours">
+                                    MAR.–MER. 11H30–22H00 / JEU. 12H00–22H00 / VEN. 11H30–23H00 / SAM. 12H00–23H00 / DIM. 11H00–21H00 / LUN. FERMÉ.
+                                </div>
+                                <div className="map-frame">
+                                    <span>693 Bd Saint-Joseph, Gatineau QC</span>
+                                </div>
                             </div>
-                            <div className="map-frame">
-                                {/*
-                  ← Remplacez par votre vrai iframe :
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!...693+Bd+Saint-Joseph+Gatineau"
-                    allowFullScreen
-                    loading="lazy"
-                  />
-                */}
-                                <span>693 Bd Saint-Joseph, Gatineau QC</span>
-                            </div>
-                        </div>
+                        </Reveal>
 
                     </div>
                 </div>
