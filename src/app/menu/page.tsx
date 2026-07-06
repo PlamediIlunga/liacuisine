@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import '../scss/menu.scss'
 import DishCardComponent from '../component/DishCardComponent'
 import { DishItem } from '../types/DishItem'
+import Reveal from '../component/Reveal'
 
 export default function Menu() {
     const [dishes, setDishes]     = useState<DishItem[]>([]);
@@ -34,16 +35,18 @@ export default function Menu() {
 
     return (
         <section className="specials">
-            <div className="specials__header">
-                <h2>NOS PLATS SAVOUREUX</h2>
-                <p>
-                    Plongez au cœur de la cuisine congolaise authentique, où chaque plat
-                    raconte une histoire transmise de génération en génération. Des épices
-                    soigneusement choisies, des produits frais et un savoir-faire fidèle
-                    aux traditions d&apos;Afrique centrale, pour une expérience qui éveille
-                    tous vos sens.
-                </p>
-            </div>
+            <Reveal variant="up">
+                <div className="specials__header">
+                    <h2>NOS PLATS SAVOUREUX</h2>
+                    <p>
+                        Plongez au cœur de la cuisine congolaise authentique, où chaque plat
+                        raconte une histoire transmise de génération en génération. Des épices
+                        soigneusement choisies, des produits frais et un savoir-faire fidèle
+                        aux traditions d&apos;Afrique centrale, pour une expérience qui éveille
+                        tous vos sens.
+                    </p>
+                </div>
+            </Reveal>
 
             {isLoading ? (
                 <div className="specials-loading">
@@ -56,7 +59,9 @@ export default function Menu() {
             ) : dishes.length > 0 ? (
                 <div className="specials__grid">
                     {dishes.map((dish, index) => (
-                        <DishCardComponent key={index} dish={dish} index={index} />
+                        <Reveal key={index} variant="up" delay={(index % 4) * 100}>
+                            <DishCardComponent dish={dish} index={index} />
+                        </Reveal>
                     ))}
                 </div>
             ) : (

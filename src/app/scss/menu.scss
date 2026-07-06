@@ -40,7 +40,6 @@
         box-shadow: $shadow-md;
         transition: transform .3s $ease-out, box-shadow .3s $ease-out;
         cursor: pointer;
-        animation: fade-up .6s $ease-out both;
 
         @media (hover: hover) {
             &:nth-child(odd):hover  { transform: translateY(-9px) rotate(.5deg); }
@@ -138,3 +137,26 @@
 }
 
 @keyframes specials-spin { to { transform: rotate(360deg); } }
+
+// ────────────────────────────────────────────────────────
+// REVEAL — animations au scroll
+// ────────────────────────────────────────────────────────
+.reveal {
+    opacity: 0;
+    transition: opacity .7s cubic-bezier(.22,.9,.32,1), transform .7s cubic-bezier(.22,.9,.32,1);
+    will-change: opacity, transform;
+
+    &--up    { transform: translateY(32px); }
+    &--left  { transform: translateX(-45px); }
+    &--right { transform: translateX(45px); }
+    &--zoom  { transform: scale(.93); }
+
+    &.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}

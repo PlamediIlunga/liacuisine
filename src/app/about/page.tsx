@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import "../scss/about.scss"
 import TeamCardComponent from '../component/TeamCardComponent'
 import { TeamMember } from '../types/TeamMember'
+import Reveal from '../component/Reveal'
 
 export default function About() {
 
@@ -37,13 +38,13 @@ export default function About() {
         <main className="about">
             {/* ── 1. HISTOIRE + STATS ──────────────────────────────────────── */}
             <section className="about-story">
-                <div className="about-story__image-col">
+                <Reveal variant="left" className="about-story__image-col">
                     <div className="about-story__img-wrap">
                         <img src="/images/about-story.jpg" alt="Lia Cuisine" />
                     </div>
-                </div>
+                </Reveal>
 
-                <div className="about-story__text-col">
+                <Reveal variant="right" delay={150} className="about-story__text-col">
                     <span className="about__eyebrow">Notre Histoire</span>
                     <h2 className="about__title">
                         Des racines<br />
@@ -68,7 +69,6 @@ export default function About() {
                         veritatis et quasi architecto beatae vitae dicta sunt.
                     </p>
 
-                    {/* Stats intégrées */}
                     <div className="about-story__stats">
                         <div className="about-story__stat about-story__stat--dark">
                             <span className="about-story__stat-icon">⭐</span>
@@ -91,13 +91,13 @@ export default function About() {
                             <span className="about-story__stat-label">693 Bd Saint-Joseph</span>
                         </div>
                     </div>
-                </div>
+                </Reveal>
             </section>
 
             {/* ── 2. VALEURS (section sombre) ──────────────────────────────── */}
             <section className="about-values">
                 <div className="about-values__inner">
-                    <div className="about-values__left">
+                    <Reveal variant="left" className="about-values__left">
                         <span className="about__eyebrow about__eyebrow--light">Ce qui nous guide</span>
                         <h2 className="about__title about__title--white">
                             L'art de la<br />patience
@@ -128,57 +128,67 @@ export default function About() {
                                 </div>
                             </li>
                         </ul>
-                    </div>
-                    <div className="about-values__right">
+                    </Reveal>
+                    <Reveal variant="right" delay={150} className="about-values__right">
                         <div className="about-values__img-wrap">
                             <img src="/images/about-cooking.jpg" alt="Cuisine Lia Cuisine" />
                         </div>
-                    </div>
+                    </Reveal>
                 </div>
             </section>
 
             {/* ── 3. PROMESSES ─────────────────────────────────────────────── */}
             <section className="about-promises">
-                <span className="about__eyebrow">Nos engagements</span>
-                <h2 className="about__title about__title--center">Nos Promesses</h2>
-                <div className="about__divider about__divider--center" />
+                <Reveal variant="up">
+                    <span className="about__eyebrow">Nos engagements</span>
+                    <h2 className="about__title about__title--center">Nos Promesses</h2>
+                    <div className="about__divider about__divider--center" />
+                </Reveal>
                 <div className="about-promises__grid">
-                    <div className="about-promises__card">
-                        <span className="about-promises__icon">⭐</span>
-                        <h3>Authenticité</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
-                    </div>
-                    <div className="about-promises__card">
-                        <span className="about-promises__icon">🌿</span>
-                        <h3>Fraîcheur</h3>
-                        <p>
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                            nisi ut aliquip ex ea commodo consequat.
-                        </p>
-                    </div>
-                    <div className="about-promises__card">
-                        <span className="about-promises__icon">🤝</span>
-                        <h3>Hospitalité</h3>
-                        <p>
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur.
-                        </p>
-                    </div>
+                    <Reveal variant="zoom" delay={0}>
+                        <div className="about-promises__card">
+                            <span className="about-promises__icon">⭐</span>
+                            <h3>Authenticité</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                        </div>
+                    </Reveal>
+                    <Reveal variant="zoom" delay={120}>
+                        <div className="about-promises__card">
+                            <span className="about-promises__icon">🌿</span>
+                            <h3>Fraîcheur</h3>
+                            <p>
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                        </div>
+                    </Reveal>
+                    <Reveal variant="zoom" delay={240}>
+                        <div className="about-promises__card">
+                            <span className="about-promises__icon">🤝</span>
+                            <h3>Hospitalité</h3>
+                            <p>
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur.
+                            </p>
+                        </div>
+                    </Reveal>
                 </div>
             </section>
 
             {/* ── 4. ÉQUIPE ────────────────────────────────────────────────── */}
             <section className="about-team">
-                <div className="about-team__header">
-                    <span className="about__eyebrow">L&apos;âme de Lia Cuisine</span>
-                    <h2 className="about__title about__title--center">Notre Équipe</h2>
-                    <p className="about-team__sub">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                </div>
+                <Reveal variant="up">
+                    <div className="about-team__header">
+                        <span className="about__eyebrow">L&apos;âme de Lia Cuisine</span>
+                        <h2 className="about__title about__title--center">Notre Équipe</h2>
+                        <p className="about-team__sub">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </p>
+                    </div>
+                </Reveal>
 
                 {isLoading ? (
                     <div className="specials-loading">
@@ -190,8 +200,10 @@ export default function About() {
                     </div>
                 ) : team.length > 0 ? (
                     <div className="about-team__grid">
-                        {team.map((member) => (
-                            <TeamCardComponent key={member.name} member={member} />
+                        {team.map((member, index) => (
+                            <Reveal key={member.name} variant="up" delay={index * 120}>
+                                <TeamCardComponent member={member} />
+                            </Reveal>
                         ))}
                     </div>
                 ) : (

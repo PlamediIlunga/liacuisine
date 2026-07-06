@@ -13,14 +13,12 @@ $texte-dim-clair: rgba(46, 37, 32, 0.75);
 $texte-blanc: rgba(255, 255, 255, 0.95);
 $texte-blanc-dim: rgba(255, 255, 255, 0.72);
 
-// ── Tokens ───────────────────────────────────────────────────────────────────
 $dark-section: #1C1410;
 $radius-card: 14px;
 $radius-sm: 8px;
 $pad-v: 5.5rem;
 $pad-h: 6%;
 
-// ── Échelle d'ombres + easing partagés ────────────────────────────────────────
 $shadow-sm: 0 2px 10px rgba(0, 0, 0, .07);
 $shadow-md: 0 8px 28px rgba(0, 0, 0, .12);
 $shadow-lg: 0 20px 50px rgba(0, 0, 0, .18);
@@ -38,13 +36,12 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
     }
 }
 
-// ── Base ─────────────────────────────────────────────────────────────────────
 .about {
     font-family: 'Inter', 'Segoe UI', sans-serif;
     color: $texte-body;
     margin: 0;
     padding: 0;
-    display: flow-root; // empêche le margin collapse de sortir du conteneur
+    display: flow-root;
 
     p {
         line-height: 1.78;
@@ -61,7 +58,6 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
     }
 }
 
-// ── Utilitaires ───────────────────────────────────────────────────────────────
 .about__eyebrow {
     display: inline-flex;
     align-items: center;
@@ -132,7 +128,6 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
         flex: 0 0 40%;
         position: sticky;
         top: 2rem;
-        animation: fade-up .7s $ease-out both;
     }
 
     &__img-wrap {
@@ -165,7 +160,6 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
     &__text-col {
         flex: 1;
         padding-top: 0.5rem;
-        animation: fade-up .7s $ease-out .1s both;
     }
 
     &__stats {
@@ -243,19 +237,16 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
 
     &__left {
         flex: 1;
-        animation: fade-up .7s $ease-out both;
     }
 
     &__right {
         flex: 0 0 44%;
-        animation: fade-up .7s $ease-out .1s both;
     }
 
     p {
         color: $texte-blanc-dim;
     }
 
-    // override .about p pour toute cette section
     &__intro {
         color: $texte-blanc;
     }
@@ -343,7 +334,6 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
         padding: 2.4rem 1.85rem;
         box-shadow: $shadow-md;
         transition: transform .3s $ease-out, box-shadow .3s $ease-out;
-        animation: fade-up .6s $ease-out both;
 
         &:hover {
             transform: translateY(-8px);
@@ -406,7 +396,6 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
 
     &__card {
         text-align: center;
-        animation: fade-up .6s $ease-out both;
         transition: transform .3s $ease-out;
 
         &:hover {
@@ -455,18 +444,6 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
         padding: 5%;
         margin: 0 auto;
         text-align: center;
-    }
-}
-
-// ── Cascade légère entre les cartes ────────────────────────────────────────────
-.about-promises__card,
-.about-team__card {
-    &:nth-child(2) {
-        animation-delay: .08s;
-    }
-
-    &:nth-child(3) {
-        animation-delay: .16s;
     }
 }
 
@@ -551,4 +528,27 @@ $ease-out: cubic-bezier(.22, 1, .36, 1);
         width: 160px;
         height: 160px;
     }
+}
+
+// ────────────────────────────────────────────────────────
+// REVEAL — animations au scroll
+// ────────────────────────────────────────────────────────
+.reveal {
+    opacity: 0;
+    transition: opacity .7s cubic-bezier(.22,.9,.32,1), transform .7s cubic-bezier(.22,.9,.32,1);
+    will-change: opacity, transform;
+
+    &--up    { transform: translateY(32px); }
+    &--left  { transform: translateX(-45px); }
+    &--right { transform: translateX(45px); }
+    &--zoom  { transform: scale(.93); }
+
+    &.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }

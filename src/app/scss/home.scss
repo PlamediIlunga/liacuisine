@@ -14,7 +14,6 @@ ul { list-style: none; }
 a  { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
-// ─── Animations globales ─────────────────────────────────
 @keyframes fade-up {
     from { opacity: 0; transform: translateY(22px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -24,7 +23,6 @@ img { max-width: 100%; display: block; }
     50%       { transform: translateY(-8px); }
 }
 
-// ─── Utilitaires ─────────────────────────────────────────
 .section-eyebrow {
     display: inline-flex;
     align-items: center;
@@ -112,7 +110,7 @@ img { max-width: 100%; display: block; }
     background-attachment: scroll;
     display: flex;
     align-items: center;
-    justify-content: flex-start; // ancrage explicite à gauche, jamais de centrage ambigu
+    justify-content: flex-start;
 
     .hero__content {
         position: relative;
@@ -120,7 +118,7 @@ img { max-width: 100%; display: block; }
         width: 100%;
         padding: 0 8%;
         max-width: 780px;
-        text-align: left; // forcé, quel que soit l'appareil
+        text-align: left;
         animation: fade-up .8s $ease-out both;
     }
 
@@ -180,33 +178,43 @@ img { max-width: 100%; display: block; }
         .hero__badge { top: 1.4rem; right: 1.4rem; padding: .7rem 1rem; }
     }
 
-    // ── Mobile : badge passe en statique dès ici (plus de chevauchement) ──
+    // ── Mobile : badge reste À DROITE (absolute), texte reste à gauche ──
     @media (max-width: $bp-mobile) {
         min-height: 560px;
-        padding: 6.5rem 0 3rem;
+        padding: 8rem 0 3rem; // plus de clearance en haut pour laisser la place au badge
 
         .hero__content { padding: 0 6%; max-width: 100%; text-align: left; }
-        .hero__title    { font-size: clamp(2.1rem, 8vw, 2.8rem); }
-        .hero__subtitle { max-width: 100%; font-size: .94rem; margin-bottom: 1.8rem; }
+        .hero__title    { font-size: clamp(2rem, 7.5vw, 2.6rem); }
+        .hero__subtitle { max-width: 100%; font-size: .92rem; margin-bottom: 1.8rem; }
 
         .hero__badge {
-            position: static;
-            margin: 0 6% 1.4rem;
-            width: fit-content;
-            animation: none;
+            top: 1.2rem;
+            right: 1.2rem;
+            padding: .55rem .75rem;
+            gap: .12rem;
+            .badge__stars { gap: 1px; span { font-size: .68rem; } }
+            .badge__score { font-size: 1.05rem; }
+            .badge__count { font-size: .52rem; }
+            .badge__range { font-size: .58rem; }
         }
     }
 
     // ── Petit mobile ──
     @media (max-width: $bp-small) {
-        min-height: 480px;
-        padding: 6rem 0 2.5rem;
+        min-height: 500px;
+        padding: 7.5rem 0 2.5rem;
 
-        .hero__content  { text-align: left; }
-        .hero__title    { font-size: clamp(1.9rem, 9vw, 2.4rem); margin-bottom: .8rem; }
-        .hero__subtitle { font-size: .88rem; line-height: 1.6; margin-bottom: 1.5rem; }
-        .hero__actions  { width: 100%; .btn { flex: 1; justify-content: center; padding: .65rem 1rem; } }
-        .hero__badge    { margin: 0 6% 1.2rem; }
+        .hero__title    { font-size: clamp(1.8rem, 8.5vw, 2.2rem); margin-bottom: .8rem; }
+        .hero__subtitle { font-size: .86rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .hero__actions  { width: 100%; .btn { flex: 1; justify-content: center; padding: .65rem .8rem; font-size: .66rem; } }
+
+        .hero__badge {
+            top: .9rem;
+            right: .9rem;
+            padding: .45rem .6rem;
+            .badge__score { font-size: .92rem; }
+            .badge__count, .badge__range { font-size: .48rem; }
+        }
     }
 }
 
