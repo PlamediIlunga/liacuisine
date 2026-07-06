@@ -1,50 +1,51 @@
 [
     {
-        "src": "",
+        "src": "/image/food-lia-cuisine1.jpg",
         "alt": "Poulet braisé",
         "titre": "Poulet Braisé",
         "description": "Mariné aux épices maison, grillé à la braise"
     },
     {
-        "src": "",
+        "src": "/image/lia-cuisine-food2.jpg",
         "alt": "Garba avec Thon",
         "titre": "Garba avec Thon",
         "description": "Attièké, thon grillé et sauce piment — un classique"
     },
     {
-        "src": "",
+        "src": "/image/images2.jpg",
         "alt": "Poulet Moambé",
         "titre": "Poulet Moambé",
         "description": "Le plat national congolais — sauce palme, riz parfumé"
     },
     {
-        "src": "",
+        "src": "/image/r8d6-lia-cuisine-meat.jpg",
         "alt": "Chèvre grillée",
         "titre": "Chèvre Grillée",
         "description": "Viande tendre marinée aux herbes et épices africaines"
     },
-    {
-        "src": "",
+        {
+        "src": "/image/food-lia-cuisine1.jpg",
         "alt": "Poulet braisé",
         "titre": "Poulet Braisé",
         "description": "Mariné aux épices maison, grillé à la braise"
     },
     {
-        "src": "",
+        "src": "/image/lia-cuisine-food2.jpg",
         "alt": "Garba avec Thon",
         "titre": "Garba avec Thon",
         "description": "Attièké, thon grillé et sauce piment — un classique"
     },
     {
-        "src": "",
+        "src": "/image/images2.jpg",
         "alt": "Poulet Moambé",
         "titre": "Poulet Moambé",
         "description": "Le plat national congolais — sauce palme, riz parfumé"
     },
     {
-        "src": "",
+        "src": "/image/r8d6-lia-cuisine-meat.jpg",
         "alt": "Chèvre grillée",
         "titre": "Chèvre Grillée",
         "description": "Viande tendre marinée aux herbes et épices africaines"
     }
+    
 ]

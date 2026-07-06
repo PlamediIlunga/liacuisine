@@ -1,0 +1,65 @@
+// ═══════════════════════════════════════════════════════
+// LIA CUISINE — _tokens.scss (design system central)
+// Importé par tous les fichiers SCSS via @use 'tokens' as *
+// ═══════════════════════════════════════════════════════
+@use "sass:color";
+
+// ── Palette ──────────────────────────────────────────────
+$rose-principal:  #C24A62;
+$rose-sombre:     #A83D55;
+$rose-pale:       #D9788A;
+$rouge-cta:       #9E2E48;
+$or:              #C9A227;
+$blanc:           #FFFFFF;
+$creme-pale:      #FAF6F0;
+$dark-section:    #1A1210;
+$texte-body:      #2E2520;
+$texte-dim-clair: rgba(46, 37, 32, 0.75);
+$texte-blanc:     rgba(255, 255, 255, 0.95);
+$texte-blanc-dim: rgba(255, 255, 255, 0.72);
+
+// ── Breakpoints unifiés ───────────────────────────────────
+$bp-tablet: 1024px;
+$bp-mobile: 768px;
+$bp-small:  480px;
+
+// ── Spacing / Radius ──────────────────────────────────────
+$radius-card:  12px;
+$radius-input: 8px;
+
+// ── Ombres ────────────────────────────────────────────────
+$shadow-sm: 0 2px 10px rgba(0, 0, 0, .08);
+$shadow-md: 0 10px 32px rgba(0, 0, 0, .16);
+$shadow-lg: 0 24px 60px rgba(0, 0, 0, .28);
+
+// ── Easing ────────────────────────────────────────────────
+$ease-out: cubic-bezier(.22, 1, .36, 1);
+
+// ── Divider dégradé rose → or (phase 3) ──────────────────
+.lia-divider {
+    height: 2px;
+    background: linear-gradient(90deg, $rose-principal, $or);
+    border: none;
+    margin: 0;
+}
+
+// ── Glow hover cartes (desktop uniquement — phase 3) ──────
+@media (hover: hover) {
+    .dish-card:hover,
+    .why-card:hover {
+        box-shadow: 0 8px 32px rgba($rose-principal, 0.22);
+    }
+}
+
+// ── Boutons :active uniforme (phase 3) ────────────────────
+.btn:active,
+button:active {
+    transform: scale(0.97);
+    transition: transform 0.1s $ease-out;
+}
+
+// ── Palette originale (retour arrière si besoin) ──────────
+// $rose-principal: #C8566B;
+// $rouge-cta:      #B03050;
+// $or:             #C49A1A;
+// $creme-pale:     #FAF7F2;

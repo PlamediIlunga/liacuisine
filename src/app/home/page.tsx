@@ -8,6 +8,9 @@ import menuBD from '../BD/menu.json'
 import { useState, useEffect } from "react";
 import { validateHomeForm } from '@/lib/contactValidation';
 import Image from "next/image";
+import CadreImageComponent from '../component/CadreImageComponent'
+import { CadreImageItem } from '../types/CadreImageItem'
+import galerieBD from '../BD/galerie.json'
 
 
 // ─── Types ────────────────────────────────────────────────
@@ -104,6 +107,17 @@ export default function Home() {
         }
     };
 
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const CAROUSEL_IMAGES = (galerieBD as CadreImageItem[]).slice(0, 4);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide(prev => (prev + 1) % CAROUSEL_IMAGES.length);
+        }, 4000);
+        return () => clearInterval(timer);
+    }, [CAROUSEL_IMAGES.length]);
+
+
     return (
         <div className="home-page">
 
@@ -134,7 +148,7 @@ export default function Home() {
                         recettes transmises de génération en génération.
                     </p>
                     <div className="hero__actions">
-                        <Link href="/kart" className="btn btn--rouge-plein">Commander</Link>
+                        <Link href="https://www.ubereats.com/store-browse-uuid/983bca0c-a802-43fc-b484-48c1024f5b15?diningMode=DELIVERY" className="btn btn--rouge-plein">Commander</Link>
                         <Link href="/menu" className="btn btn--outline-blanc">Menu</Link>
                     </div>
                 </div>
@@ -220,48 +234,90 @@ export default function Home() {
           4. ABOUT SPLIT
       ══════════════════════════════════════════ */}
             <section className="about-split">
-                <div className="about-split__inner">
+            <div className="about-split__inner">
 
-                    <div className="about-split__img-wrap">
-                        <div className="img-main">
-                            {/* ← <img src="/images/famille.jpg" alt="La famille Lia Cuisine" /> */}
+                <div className="about-split__img-wrap">
+                    <Link href="/galerie" className="about-split__carousel" aria-label="Voir la galerie">
+                        <div className="carousel__slide">
+                            <CadreImageComponent
+                                cadreImage={CAROUSEL_IMAGES[currentSlide]}
+                                index={currentSlide + 1}
+                            />
                         </div>
-                        <div className="img-badge">
-                            <strong>4,6</strong>
-                            <span className="badge-label">sur Google</span>
-                            <span className="badge-count">231 avis</span>
+
+                        <button
+                            type="button"
+                            className="carousel__btn carousel__btn--prev"
+                            aria-label="Image précédente"
+                            onClick={e => {
+                                e.preventDefault();
+                                setCurrentSlide(prev => (prev - 1 + CAROUSEL_IMAGES.length) % CAROUSEL_IMAGES.length);
+                            }}
+                        >
+                            ‹
+                        </button>
+
+                        <button
+                            type="button"
+                            className="carousel__btn carousel__btn--next"
+                            aria-label="Image suivante"
+                            onClick={e => {
+                                e.preventDefault();
+                                setCurrentSlide(prev => (prev + 1) % CAROUSEL_IMAGES.length);
+                            }}
+                        >
+                            ›
+                        </button>
+
+                        <div className="carousel__dots">
+                            {CAROUSEL_IMAGES.map((_, i) => (
+                                <button
+                                    key={i}
+                                    type="button"
+                                    className={`carousel__dot${i === currentSlide ? ' carousel__dot--active' : ''}`}
+                                    aria-label={`Aller à l'image ${i + 1}`}
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        setCurrentSlide(i);
+                                    }}
+                                />
+                            ))}
                         </div>
+                    </Link>
+
+                    <div className="img-badge">
+                        <strong>4,6</strong>
+                        <span className="badge-label">sur Google</span>
+                        <span className="badge-count">233 avis</span>
                     </div>
-
-                    <div className="about-split__text">
-                        <h2>
-                            Comment pouvons-nous<br />
-                            travailler ensemble
-                        </h2>
-                        <p>
-                            Lia Cuisine est né d'un amour profond pour la gastronomie
-                            africaine et du désir de partager les richesses culinaires
-                            du Congo et d'Afrique centrale avec la communauté de Gatineau.
-                            Chaque plat est une histoire, chaque repas un moment de partage.
-                        </p>
-
-                        <div className="review-quote">
-                            <div className="stars">★★★★★</div>
-                            <blockquote>
-                                "Lia Cuisine est une véritable pépite culinaire qui séduit
-                                dès la première bouchée. Les plats sont préparés avec soin,
-                                mettant en valeur des saveurs authentiques et généreuses."
-                            </blockquote>
-                            <cite>— Ibrahima S., il y a 5 mois</cite>
-                        </div>
-
-                        <Link href="/about" className="btn-about">
-                            En savoir plus
-                        </Link>
-                    </div>
-
                 </div>
-            </section>
+
+                <div className="about-split__text">
+                    <h2>
+                        Découvrez les moments<br />
+                        mémorables de la<br />
+                        famille <em>Lia Cuisine</em>
+                    </h2>
+                    <p>
+                        Depuis notre ouverture au 693 Bd Saint-Joseph à Gatineau, Lia Cuisine
+                        fait découvrir la richesse de la cuisine congolaise dans une ambiance
+                        chaleureuse et familiale. Chaque plat, du poulet mayo au poisson salé,
+                        est préparé avec des recettes authentiques transmises de génération
+                        en génération.
+                    </p>
+                    <p>
+                        Nos 233 avis Google et notre note de 4,6★ témoignent de la confiance
+                        que nos clients nous accordent, repas après repas, pour environ
+                        20 à 30$ par personne.
+                    </p>
+
+                    <Link href="/galerie" className="btn-about">
+                        En savoir plus
+                    </Link>
+                </div>
+
+            </div>
+        </section>
 
             {/* ══════════════════════════════════════════
           5. WHY US

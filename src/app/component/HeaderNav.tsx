@@ -72,7 +72,7 @@ export default function HeaderNav() {
                         </li>
                     ))}
                     <li className="li_commande">
-                        <Link href="/kart" onClick={close}>
+                        <Link href="https://www.ubereats.com/store-browse-uuid/983bca0c-a802-43fc-b484-48c1024f5b15?diningMode=DELIVERY" onClick={close}>
                             <button type="button">Commander</button>
                         </Link>
                     </li>

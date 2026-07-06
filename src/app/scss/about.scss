@@ -1,34 +1,41 @@
 @use "sass:color";
 
 // ── Palette Lia Cuisine ───────────────────────────────────────────────────────
-$rose-principal:   #C8566B;
-$rose-sombre:      #B54660;
-$rose-pale:        #D4697C;
-$rouge-cta:        #B03050;
-$or:               #C49A1A;
-$blanc:            #FFFFFF;
-$creme-pale:       #FAF7F2;
-$texte-body:       #2E2520;
-$texte-dim-clair:  rgba(46, 37, 32, 0.75);
-$texte-blanc:      rgba(255, 255, 255, 0.95);
-$texte-blanc-dim:  rgba(255, 255, 255, 0.72);
+$rose-principal: #C8566B;
+$rose-sombre: #B54660;
+$rose-pale: #D4697C;
+$rouge-cta: #B03050;
+$or: #C49A1A;
+$blanc: #FFFFFF;
+$creme-pale: #FAF7F2;
+$texte-body: #2E2520;
+$texte-dim-clair: rgba(46, 37, 32, 0.75);
+$texte-blanc: rgba(255, 255, 255, 0.95);
+$texte-blanc-dim: rgba(255, 255, 255, 0.72);
 
 // ── Tokens ───────────────────────────────────────────────────────────────────
-$dark-section:  #1C1410;
-$radius-card:   14px;
-$radius-sm:     8px;
-$pad-v:         5.5rem;
-$pad-h:         6%;
+$dark-section: #1C1410;
+$radius-card: 14px;
+$radius-sm: 8px;
+$pad-v: 5.5rem;
+$pad-h: 6%;
 
 // ── Échelle d'ombres + easing partagés ────────────────────────────────────────
 $shadow-sm: 0 2px 10px rgba(0, 0, 0, .07);
 $shadow-md: 0 8px 28px rgba(0, 0, 0, .12);
 $shadow-lg: 0 20px 50px rgba(0, 0, 0, .18);
-$ease-out:  cubic-bezier(.22, 1, .36, 1);
+$ease-out: cubic-bezier(.22, 1, .36, 1);
 
 @keyframes fade-up {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 // ── Base ─────────────────────────────────────────────────────────────────────
@@ -75,7 +82,9 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
         background: currentColor;
     }
 
-    &--light { color: $rose-pale; }
+    &--light {
+        color: $rose-pale;
+    }
 }
 
 .about__title {
@@ -86,9 +95,17 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
     color: $texte-body;
     margin: 0 0 1rem;
 
-    &--accent { color: $rose-principal; }
-    &--white  { color: $texte-blanc; }
-    &--center { text-align: center; }
+    &--accent {
+        color: $rose-principal;
+    }
+
+    &--white {
+        color: $texte-blanc;
+    }
+
+    &--center {
+        text-align: center;
+    }
 }
 
 .about__divider {
@@ -98,7 +115,9 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
     margin: 0 0 1.85rem;
     border-radius: 2px;
 
-    &--center { margin: 0 auto 1.85rem; }
+    &--center {
+        margin: 0 auto 1.85rem;
+    }
 }
 
 // ── 1. HISTOIRE + STATS ──────────────────────────────────────────────────────
@@ -136,7 +155,10 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
 
         &:hover {
             transform: translateY(-4px);
-            &::before { inset: -14px 14px 14px -14px; }
+
+            &::before {
+                inset: -14px 14px 14px -14px;
+            }
         }
     }
 
@@ -161,28 +183,51 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
         gap: 0.3rem;
         transition: transform .3s $ease-out, box-shadow .3s $ease-out;
 
-        &:hover { transform: translateY(-5px); box-shadow: $shadow-md; }
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: $shadow-md;
+        }
 
         &--dark {
             background: $dark-section;
-            .about-story__stat-number { color: $texte-blanc; }
-            .about-story__stat-label  { color: $texte-blanc-dim; }
+
+            .about-story__stat-number {
+                color: $texte-blanc;
+            }
+
+            .about-story__stat-label {
+                color: $texte-blanc-dim;
+            }
         }
 
         &--rose {
             background: linear-gradient(155deg, $rose-pale, $rose-principal);
-            .about-story__stat-number { color: $blanc; }
-            .about-story__stat-label  { color: rgba(255, 255, 255, 0.85); }
+
+            .about-story__stat-number {
+                color: $blanc;
+            }
+
+            .about-story__stat-label {
+                color: rgba(255, 255, 255, 0.85);
+            }
         }
     }
 
-    &__stat-icon   { font-size: 1.35rem; margin-bottom: 0.3rem; }
+    &__stat-icon {
+        font-size: 1.35rem;
+        margin-bottom: 0.3rem;
+    }
+
     &__stat-number {
         font-size: 1.15rem;
         font-weight: 800;
         line-height: 1.1;
     }
-    &__stat-label  { font-size: 0.72rem; font-weight: 500; }
+
+    &__stat-label {
+        font-size: 0.72rem;
+        font-weight: 500;
+    }
 }
 
 // ── 2. VALEURS (sombre) ───────────────────────────────────────────────────────
@@ -196,14 +241,23 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
         gap: 5rem;
     }
 
-    &__left  { flex: 1; animation: fade-up .7s $ease-out both; }
-    &__right { flex: 0 0 44%; animation: fade-up .7s $ease-out .1s both; }
+    &__left {
+        flex: 1;
+        animation: fade-up .7s $ease-out both;
+    }
 
-    &__intro {
+    &__right {
+        flex: 0 0 44%;
+        animation: fade-up .7s $ease-out .1s both;
+    }
+
+    p {
         color: $texte-blanc-dim;
-        font-size: 1rem;
-        margin: 0 0 2rem;
-        max-width: 42ch;
+    }
+
+    // override .about p pour toute cette section
+    &__intro {
+        color: $texte-blanc;
     }
 
     &__list {
@@ -220,7 +274,10 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
         gap: 1.1rem;
         align-items: flex-start;
         transition: transform .25s $ease-out;
-        &:hover { transform: translateX(6px); }
+
+        &:hover {
+            transform: translateX(6px);
+        }
 
         strong {
             display: block;
@@ -256,7 +313,10 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
         border: 2px solid rgba($rose-principal, 0.35);
         box-shadow: $shadow-lg;
         transition: transform .4s $ease-out;
-        &:hover { transform: translateY(-4px); }
+
+        &:hover {
+            transform: translateY(-4px);
+        }
     }
 }
 
@@ -266,7 +326,9 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
     padding: $pad-v $pad-h;
     text-align: center;
 
-    > .about__eyebrow { justify-content: center; }
+    >.about__eyebrow {
+        justify-content: center;
+    }
 
     &__grid {
         display: grid;
@@ -346,7 +408,10 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
         text-align: center;
         animation: fade-up .6s $ease-out both;
         transition: transform .3s $ease-out;
-        &:hover { transform: translateY(-4px); }
+
+        &:hover {
+            transform: translateY(-4px);
+        }
     }
 
     &__photo-wrap {
@@ -396,22 +461,38 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
 // ── Cascade légère entre les cartes ────────────────────────────────────────────
 .about-promises__card,
 .about-team__card {
-    &:nth-child(2) { animation-delay: .08s; }
-    &:nth-child(3) { animation-delay: .16s; }
+    &:nth-child(2) {
+        animation-delay: .08s;
+    }
+
+    &:nth-child(3) {
+        animation-delay: .16s;
+    }
 }
 
 // ── Responsive ────────────────────────────────────────────────────────────────
 @media (max-width: 1200px) {
-    .about-story { gap: 3.5rem; }
-    .about-values__inner { gap: 3.5rem; }
+    .about-story {
+        gap: 3.5rem;
+    }
+
+    .about-values__inner {
+        gap: 3.5rem;
+    }
 }
 
 @media (max-width: 1024px) {
     .about-story__stats {
         grid-template-columns: repeat(2, 1fr);
     }
-    .about-promises__grid { gap: 1.4rem; }
-    .about-team__grid { gap: 1.8rem; }
+
+    .about-promises__grid {
+        gap: 1.4rem;
+    }
+
+    .about-team__grid {
+        gap: 1.8rem;
+    }
 }
 
 @media (max-width: 860px) {
@@ -433,20 +514,41 @@ $ease-out:  cubic-bezier(.22, 1, .36, 1);
         gap: 2.5rem;
     }
 
-    .about-values__right { flex: none; width: 100%; }
+    .about-values__right {
+        flex: none;
+        width: 100%;
+    }
 
-    .about-promises__grid { grid-template-columns: 1fr; max-width: 460px; margin: 3.2rem auto 0; }
+    .about-promises__grid {
+        grid-template-columns: 1fr;
+        max-width: 460px;
+        margin: 3.2rem auto 0;
+    }
 
-    .about-team__grid { grid-template-columns: 1fr; gap: 2.6rem; max-width: 340px; margin: 0 auto; }
+    .about-team__grid {
+        grid-template-columns: 1fr;
+        gap: 2.6rem;
+        max-width: 340px;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 540px) {
+
     .about-story,
     .about-values,
     .about-promises,
-    .about-team { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .about-team {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
 
-    .about-story__stats { grid-template-columns: 1fr 1fr; }
+    .about-story__stats {
+        grid-template-columns: 1fr 1fr;
+    }
 
-    .about-team__photo-wrap { width: 160px; height: 160px; }
+    .about-team__photo-wrap {
+        width: 160px;
+        height: 160px;
+    }
 }
