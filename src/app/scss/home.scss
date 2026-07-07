@@ -308,7 +308,7 @@ img { max-width: 100%; display: block; }
     @media (max-width: $bp-mobile) {
         .features__grid { padding: 6% 6%; }
         .feature-row { grid-template-columns: 1fr; min-height: auto; gap: 0; margin-bottom: .8rem; }
-        .feature-card__img { min-height: 200px; border-radius: 8px 8px 0 0; }
+        .feature-card__img { min-height: 200px; border-radius: 8px 8px 0 0; order: -1; }
         .feature-card__body {
             padding: 1.6rem 1.4rem;
             border-radius: 0 0 8px 8px;
@@ -710,7 +710,8 @@ img { max-width: 100%; display: block; }
 // 6. CONTACT BAND
 // ════════════════════════════════════════════════════════
 .contact-band {
-    background: linear-gradient(155deg, $rose-principal 0%, $rose-sombre 100%);
+    //background: linear-gradient(155deg, $rose-principal 0%, $rose-sombre 100%);
+    background: linear-gradient(to bottom, $rouge-cta 100%, $rose-principal 0%);
     padding: 5rem 3rem 5.5rem;
 
     .contact-band__inner { max-width: 1100px; margin: 0 auto; }
