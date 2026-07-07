@@ -222,7 +222,7 @@ img { max-width: 100%; display: block; }
 // 2. FEATURE STRIP
 // ════════════════════════════════════════════════════════
 .features {
-    background: linear-gradient(155deg, $rose-principal 0%, $rouge-cta 100%);
+    background: linear-gradient(155deg, $rose-principal 0%, $rose-sombre 100%);
 
     .features__grid {
         display: grid;
@@ -329,7 +329,8 @@ img { max-width: 100%; display: block; }
 .specials {
     position: relative;
     padding: 5.5rem 3rem 6.5rem;
-    background: linear-gradient(to bottom, $blanc 52%, $rouge-cta 48%);
+    background: linear-gradient(to bottom, $creme-pale 52%, $rouge-cta 48%);
+    //background: linear-gradient(to bottom, $creme-pale 99%, $rose-principal 1%);
 
     .specials__header {
         text-align: center;
