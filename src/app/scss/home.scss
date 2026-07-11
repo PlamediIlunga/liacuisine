@@ -3,6 +3,8 @@
 // ═══════════════════════════════════════════════════════
 @use "sass:color";
 @use 'tokens' as *;
+@use 'dish-card';
+@use 'reveal';
 
 @import url('https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Anek+Gujarati:wght@100..800&display=swap');
 
@@ -348,45 +350,6 @@ img { max-width: 100%; display: block; }
         z-index: 1;
     }
 
-    .dish-card {
-        background: $blanc;
-        border-radius: 8px;
-        overflow: visible;
-        box-shadow: $shadow-md;
-        transition: transform .3s $ease-out, box-shadow .3s $ease-out;
-        cursor: pointer;
-
-        @media (hover: hover) {
-            &:nth-child(odd):hover  { transform: translateY(-9px) rotate(.5deg); }
-            &:nth-child(even):hover { transform: translateY(-9px) rotate(-.5deg); }
-        }
-    }
-
-    #dish-card1, #dish-card3 { margin-top: 40%; }
-    #dish-card2, #dish-card4 { margin-bottom: 30%; margin-top: 10%; }
-
-    .dish-card__img {
-        width: 88%;
-        margin: 0.9rem auto 0;
-        aspect-ratio: 1/1;
-        background: #e8ddd5;
-        border-radius: 6px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 3px 12px rgba(0,0,0,.1);
-
-        &::before { content: ''; position: absolute; inset: 0; background: linear-gradient(145deg, #ddd4c8, #e8ddd5); }
-        img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: 2; transition: transform .5s $ease-out; }
-        .dish-card:hover & img { transform: scale(1.06); }
-    }
-
-    .dish-card__body {
-        padding: 0.9rem 1.1rem 1.3rem;
-        text-align: center;
-        h4 { font-size: 0.94rem; font-weight: 700; color: $texte-body; margin-bottom: .3rem; }
-        p  { font-size: 0.80rem; color: $rose-principal; line-height: 1.55; font-style: italic; }
-    }
-
     .specials__cta { text-align: center; margin-top: 3.5rem; }
 
     .btn-voir-plus {
@@ -416,15 +379,12 @@ img { max-width: 100%; display: block; }
     @media (max-width: $bp-mobile) {
         padding: 3.5rem 1.5rem 4rem;
         .specials__header { margin-bottom: 2.2rem; }
-        .dish-card__body { padding: .7rem .9rem 1rem; h4 { font-size: .86rem; } p { font-size: .74rem; } }
     }
     @media (max-width: $bp-small) {
         padding: 3rem 1.2rem 3.5rem;
         .specials__grid { grid-template-columns: 1fr; max-width: 300px; gap: 1.2rem; }
     }
 }
-
-@keyframes specials-spin { to { transform: rotate(360deg); } }
 
 // ════════════════════════════════════════════════════════
 // 4. ABOUT SPLIT
@@ -829,27 +789,4 @@ img { max-width: 100%; display: block; }
         padding: 2.5rem 1.2rem 3rem;
         .contact-band__infos { grid-template-columns: 1fr; gap: 1.4rem; }
     }
-}
-
-// ════════════════════════════════════════════════════════
-// 7. REVEAL ANIMATIONS AU SCROLL
-// ════════════════════════════════════════════════════════
-.reveal {
-    opacity: 0;
-    transition: opacity .7s cubic-bezier(.22,.9,.32,1), transform .7s cubic-bezier(.22,.9,.32,1);
-    will-change: opacity, transform;
-
-    &--up    { transform: translateY(32px); }
-    &--left  { transform: translateX(-45px); }
-    &--right { transform: translateX(45px); }
-    &--zoom  { transform: scale(.93); }
-
-    &.is-visible {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
