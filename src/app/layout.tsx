@@ -1,4 +1,3 @@
-// app/layout.tsx — LIA CUISINE (v5 — palette rose-rouge fidèle maquette)
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -6,15 +5,29 @@ import "./scss/layout.scss";
 import "./scss/home.scss";
 import Link from "next/link";
 import HeaderNav from "./component/HeaderNav";
+import RestaurantJsonLd from "./component/RestaurantJsonLd";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lia Cuisine — Saveurs d'Afrique · Gatineau",
+  metadataBase: new URL("https://liacuisine.ca"),
+  title: {
+    default: "Lia Cuisine — Saveurs d'Afrique · Gatineau",
+    template: "%s | Lia Cuisine",
+  },
   description:
     "Restaurant africain authentique au 693 Bd Saint-Joseph, Gatineau QC. " +
     "Cuisine congolaise et d'Afrique centrale. Note 4,6/5 · (819) 576-4927.",
+  openGraph: {
+    siteName: "Lia Cuisine",
+    locale: "fr_CA",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -22,25 +35,23 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
 
-        {/* ─── HEADER ──────────────────────────────── */}
+        <RestaurantJsonLd />
+
         <header className="header">
           <div className="header__inner">
             <div className="header__logo">
-              <Link href="/home">LIA CUISINE</Link>
+              <Link href="/">LIA CUISINE</Link>
               <span>Saveurs d'Afrique • Gatineau</span>
             </div>
             <HeaderNav />
           </div>
         </header>
 
-        {/* ─── CONTENU ─────────────────────────────── */}
         <main>{children}</main>
 
-        {/* ─── FOOTER — fond rouge-rosé, 3 colonnes + réseaux sociaux ── */}
         <footer className="footer">
           <div className="footer__grid">
 
-            {/* Col 1 — Branding */}
             <div className="footer__brand">
               <p className="footer__logo">LiaCuisine</p>
               <p className="footer__tagline">Saveurs d'Afrique • Gatineau</p>
@@ -51,11 +62,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </p>
             </div>
 
-            {/* Col 2 — Navigation */}
             <div className="footer__col">
               <h4>Navigation</h4>
               <ul>
-                <li><Link href="/home">Home</Link></li>
+                <li><Link href="/">Home</Link></li>
                 <li><Link href="/menu">Menu</Link></li>
                 <li><Link href="/galerie">Gallerie</Link></li>
                 <li><Link href="/about">About</Link></li>
@@ -63,7 +73,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </ul>
             </div>
 
-            {/* Col 3 — Réseaux sociaux avec icônes cercles */}
             <div className="footer__col footer__social-section">
               <h4 className="footer__social-title">Réseaux sociaux</h4>
               <p className="footer__social-subtitle">Suivez-nous</p>
