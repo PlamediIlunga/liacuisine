@@ -41,5 +41,4 @@ env.d.ts
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-# html files google search console
-*.html
+
