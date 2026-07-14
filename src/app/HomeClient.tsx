@@ -348,7 +348,7 @@ export default function HomeClient() {
                                 Duis aute irure dolor in reprehenderit in voluptate velit esse
                                 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
                             </p>
-                            <Link href="/menu" className="why-card__link">Gagne Plus</Link>
+                            <Link href="/menu" className="why-card__link">VOIR PLUS</Link>
                         </div>
                     </Reveal>
 
@@ -364,7 +364,7 @@ export default function HomeClient() {
                                 Duis aute irure dolor in reprehenderit in voluptate velit esse
                                 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
                             </p>
-                            <Link href="/menu" className="why-card__link">Gagne Plus</Link>
+                            <Link href="/menu" className="why-card__link">VOIR PLUS</Link>
                         </div>
                     </Reveal>
 
@@ -383,7 +383,7 @@ export default function HomeClient() {
                                 Duis aute irure dolor in reprehenderit in voluptate velit esse
                                 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
                             </p>
-                            <Link href="/menu" className="why-card__link">Gagne Plus</Link>
+                            <Link href="/menu" className="why-card__link">VOIR PLUS</Link>
                         </div>
                     </Reveal>
 

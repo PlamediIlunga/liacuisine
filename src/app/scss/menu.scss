@@ -73,8 +73,8 @@
         .specials__header p { font-size: 0.92rem; }
     }
     @media (max-width: $bp-small) {
-        padding: 3.5rem 1.2rem 4rem;
-        .specials__grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+    padding: 3.5rem 1.2rem 4rem;
+    .specials__grid { grid-template-columns: 1fr; max-width: 340px; gap: 1.2rem; margin: 0 auto; }
     }
 }
 

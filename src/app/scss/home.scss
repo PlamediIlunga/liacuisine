@@ -381,8 +381,8 @@ img { max-width: 100%; display: block; }
         .specials__header { margin-bottom: 2.2rem; }
     }
     @media (max-width: $bp-small) {
-        padding: 3rem 1.2rem 3.5rem;
-        .specials__grid { grid-template-columns: 1fr; max-width: 300px; gap: 1.2rem; }
+    padding: 3rem 1.2rem 3.5rem;
+    .specials__grid { grid-template-columns: 1fr; max-width: 340px; gap: 1.2rem; margin: 0 auto; }
     }
 }
 
