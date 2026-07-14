@@ -34,6 +34,7 @@ export default function MenuClient() {
     }, []);
 
     return (
+    <div className="menu-page">
         <section className="specials">
             <Reveal variant="up">
                 <div className="specials__header">
@@ -68,5 +69,6 @@ export default function MenuClient() {
                 <p className="specials-empty">Aucun plat disponible pour le moment.</p>
             )}
         </section>
+    </div>
     )
 }

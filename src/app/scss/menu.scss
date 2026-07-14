@@ -11,7 +11,7 @@
     to   { opacity: 1; transform: translateY(0); }
 }
 
-.specials {
+.menu-page .specials {
     position: relative;
     padding: 6.5rem 3rem 6.5rem;
     background: linear-gradient(to bottom, $blanc 52%, $rouge-cta 48%);
@@ -73,12 +73,12 @@
         .specials__header p { font-size: 0.92rem; }
     }
     @media (max-width: $bp-small) {
-    padding: 3.5rem 1.2rem 4rem;
-    .specials__grid { grid-template-columns: 1fr; max-width: 340px; gap: 1.2rem; margin: 0 auto; }
+        padding: 3.5rem 1.2rem 4rem;
+        .specials__grid { grid-template-columns: 1fr; max-width: 340px; gap: 1.2rem; margin: 0 auto; }
     }
 }
 
-.specials-loading {
+.menu-page .specials-loading {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,7 +91,7 @@
     span { font-size: 0.8rem; letter-spacing: .1em; text-transform: uppercase; color: $texte-dim-clair; }
 }
 
-.specials-empty {
+.menu-page .specials-empty {
     text-align: center;
     padding: 4.5rem 0;
     font-size: 0.92rem;

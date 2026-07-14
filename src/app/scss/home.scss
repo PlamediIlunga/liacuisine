@@ -328,7 +328,7 @@ img { max-width: 100%; display: block; }
 // ════════════════════════════════════════════════════════
 // 3. PLATS SPÉCIAUX
 // ════════════════════════════════════════════════════════
-.specials {
+.home-page .specials {
     position: relative;
     padding: 5.5rem 3rem 6.5rem;
     background: linear-gradient(to bottom, $creme-pale 52%, $rouge-cta 48%);
@@ -402,24 +402,29 @@ img { max-width: 100%; display: block; }
 
         .specials__header { margin-bottom: 2.2rem; padding: 0 1.5rem; }
 
+        // ── neutralise le stagger masonry (desktop) pour le carrousel mobile ──
+        #dish-card1, #dish-card2, #dish-card3, #dish-card4 { margin: 0; }
+
         .specials__grid {
             display: flex;
             grid-template-columns: none;
             max-width: none;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            scroll-padding-left: 1.5rem;
             -webkit-overflow-scrolling: touch;
             gap: 1rem;
             margin: 0;
-            padding: 0 1.5rem .5rem;
+
+            // centre la première carte au lieu de la coller à gauche
+            padding: 0 14% .5rem;
+            scroll-padding: 0 14%;
 
             scrollbar-width: none;
             &::-webkit-scrollbar { display: none; }
 
             > * {
-                scroll-snap-align: start;
-                flex: 0 0 calc(72% - .6rem);
+                scroll-snap-align: center;
+                flex: 0 0 72%;
                 margin: 0;
             }
         }
@@ -432,8 +437,8 @@ img { max-width: 100%; display: block; }
         padding: 3rem 0 3.5rem;
         .specials__header { padding: 0 1.2rem; }
         .specials__grid {
-            padding: 0 1.2rem .5rem;
-            scroll-padding-left: 1.2rem;
+            padding: 0 11% .5rem;
+            scroll-padding: 0 11%;
             > * { flex: 0 0 78%; }
         }
         .specials__cta { padding: 0 1.2rem; }
