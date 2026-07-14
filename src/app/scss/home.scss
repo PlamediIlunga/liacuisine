@@ -349,6 +349,27 @@ img { max-width: 100%; display: block; }
         z-index: 1;
     }
 
+    .specials__dots {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+        margin-top: 1.6rem;
+    }
+
+    .specials__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: none;
+        padding: 0;
+        background: rgba($rose-principal, .28);
+        cursor: pointer;
+        transition: background .2s, transform .2s;
+
+        &--active { background: $rose-principal; transform: scale(1.35); }
+    }
+
     .specials__cta { text-align: center; margin-top: 3.5rem; }
 
     .btn-voir-plus {
@@ -371,49 +392,51 @@ img { max-width: 100%; display: block; }
     }
 
     @media (max-width: $bp-tablet) {
-    padding: 4.5rem 2rem 5.5rem;
-    .specials__grid { grid-template-columns: repeat(2, 1fr); gap: 1.6rem 1.2rem; }
-    #dish-card1, #dish-card2, #dish-card3, #dish-card4 { margin: 0; }
-}
+        padding: 4.5rem 2rem 5.5rem;
+        .specials__grid { grid-template-columns: repeat(2, 1fr); gap: 1.6rem 1.2rem; }
+        #dish-card1, #dish-card2, #dish-card3, #dish-card4 { margin: 0; }
+    }
+
     @media (max-width: $bp-mobile) {
-        padding: 3.5rem 1.5rem 4rem;
+        padding: 3.5rem 0 4rem;
+
+        .specials__header { margin-bottom: 2.2rem; padding: 0 1.5rem; }
 
         .specials__grid {
             display: flex;
             grid-template-columns: none;
+            max-width: none;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
+            scroll-padding-left: 1.5rem;
             -webkit-overflow-scrolling: touch;
             gap: 1rem;
-            padding-bottom: .5rem;
-            margin: 0 -1.5rem;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
+            margin: 0;
+            padding: 0 1.5rem .5rem;
 
-            // masque la scrollbar (optionnel, esthétique)
             scrollbar-width: none;
             &::-webkit-scrollbar { display: none; }
 
             > * {
                 scroll-snap-align: start;
-                flex: 0 0 62%; // ~1.5 carte visible = indice qu'on peut scroller
+                flex: 0 0 calc(72% - .6rem);
                 margin: 0;
             }
         }
 
-        .specials__header { margin-bottom: 2.2rem; }
+        .specials__dots { display: flex; }
+        .specials__cta { padding: 0 1.5rem; }
     }
+
     @media (max-width: $bp-small) {
-        padding: 3rem 1.2rem 3.5rem;
-
+        padding: 3rem 0 3.5rem;
+        .specials__header { padding: 0 1.2rem; }
         .specials__grid {
-            margin: 0 -1.2rem;
-            padding-left: 1.2rem;
-            padding-right: 1.2rem;
-            max-width: none; // on retire la contrainte fixée pour desktop/tablette précédente
-
+            padding: 0 1.2rem .5rem;
+            scroll-padding-left: 1.2rem;
             > * { flex: 0 0 78%; }
         }
+        .specials__cta { padding: 0 1.2rem; }
     }
 }
 

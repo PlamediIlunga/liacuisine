@@ -4,7 +4,7 @@ import Link from "next/link";
 import DishCardComponent from './component/DishCardComponent'
 import { DishItem } from './types/DishItem'
 import menuBD from './BD/menu.json'
-import { useState, useEffect } from "react";
+import { useState, useEffect , useRef } from "react";
 import { validateHomeForm } from '@/lib/contactValidation';
 import Image from "next/image";
 import CadreImageComponent from './component/CadreImageComponent'
@@ -31,6 +31,37 @@ export default function HomeClient() {
     const [homeForm, setHomeForm] = useState<HomeFormData>(INITIAL_HOME_FORM);
     const [homeFormState, setHomeFormState] = useState<HomeFormState>('idle');
     const [homeFormError, setHomeFormError] = useState<string | null>(null);
+
+    const specialsGridRef = useRef<HTMLDivElement>(null);
+const [activeDishIndex, setActiveDishIndex] = useState(0);
+const specialDishes = (menuBD as DishItem[]).slice(0, 4);
+
+useEffect(() => {
+    const container = specialsGridRef.current;
+    if (!container) return;
+
+    const cards = Array.from(container.children) as HTMLElement[];
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+                    const idx = cards.indexOf(entry.target as HTMLElement);
+                    if (idx !== -1) setActiveDishIndex(idx);
+                }
+            });
+        },
+        { root: container, threshold: [0.6] }
+    );
+
+    cards.forEach(card => observer.observe(card));
+    return () => observer.disconnect();
+}, []);
+
+const scrollToDish = (index: number) => {
+    const container = specialsGridRef.current;
+    const card = container?.children[index] as HTMLElement | undefined;
+    card?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+};
 
     useEffect(() => {
         const getDishes = async () => {
@@ -217,11 +248,23 @@ export default function HomeClient() {
                     </div>
                 </Reveal>
 
-                <div className="specials__grid">
-                    {(menuBD as DishItem[]).slice(0, 4).map((dish, index) => (
+                <div className="specials__grid" ref={specialsGridRef}>
+                    {specialDishes.map((dish, index) => (
                         <Reveal key={index} variant="up" delay={index * 100}>
                             <DishCardComponent dish={dish} index={index} />
                         </Reveal>
+                    ))}
+                </div>
+
+                <div className="specials__dots" aria-hidden="true">
+                    {specialDishes.map((_, i) => (
+                        <button
+                            key={i}
+                            type="button"
+                            className={`specials__dot${i === activeDishIndex ? ' specials__dot--active' : ''}`}
+                            aria-label={`Voir le plat ${i + 1}`}
+                            onClick={() => scrollToDish(i)}
+                        />
                     ))}
                 </div>
 
