@@ -407,6 +407,7 @@ img { max-width: 100%; display: block; }
 
         .specials__grid {
             display: flex;
+            align-items: flex-start; // ← empêche le stretch qui écrasait la 1ère carte
             grid-template-columns: none;
             max-width: none;
             overflow-x: auto;
@@ -415,16 +416,17 @@ img { max-width: 100%; display: block; }
             gap: 1rem;
             margin: 0;
 
-            // centre la première carte au lieu de la coller à gauche
-            padding: 0 14% .5rem;
-            scroll-padding: 0 14%;
+            // centre la première carte, cartes plus grandes
+            padding: 0 10% .5rem;
+            scroll-padding: 0 10%;
 
             scrollbar-width: none;
             &::-webkit-scrollbar { display: none; }
 
             > * {
                 scroll-snap-align: center;
-                flex: 0 0 72%;
+                flex: 0 0 80%;
+                flex-shrink: 0;
                 margin: 0;
             }
         }
@@ -437,9 +439,9 @@ img { max-width: 100%; display: block; }
         padding: 3rem 0 3.5rem;
         .specials__header { padding: 0 1.2rem; }
         .specials__grid {
-            padding: 0 11% .5rem;
-            scroll-padding: 0 11%;
-            > * { flex: 0 0 78%; }
+            padding: 0 7% .5rem;
+            scroll-padding: 0 7%;
+            > * { flex: 0 0 86%; }
         }
         .specials__cta { padding: 0 1.2rem; }
     }
