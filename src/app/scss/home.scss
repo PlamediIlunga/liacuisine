@@ -407,7 +407,6 @@ img { max-width: 100%; display: block; }
 
         .specials__grid {
             display: flex;
-            align-items: flex-start; // ← empêche le stretch qui écrasait la 1ère carte
             grid-template-columns: none;
             max-width: none;
             overflow-x: auto;

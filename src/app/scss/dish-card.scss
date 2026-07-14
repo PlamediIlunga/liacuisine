@@ -1,5 +1,3 @@
-@use 'tokens' as *;
-
 .dish-card {
     background: $blanc;
     border-radius: 20px;
@@ -7,6 +5,11 @@
     box-shadow: $shadow-md;
     transition: transform .3s $ease-out, box-shadow .3s $ease-out;
     cursor: pointer;
+
+    // ── rend la carte flex pour uniformiser la hauteur sans écraser l'image ──
+    display: flex;
+    flex-direction: column;
+    height: 100%; // s'appuie sur le stretch du parent (.specials__grid)
 
     @media (hover: hover) {
         &:nth-child(odd):hover  { transform: translateY(-9px) rotate(.5deg); }
@@ -25,6 +28,9 @@
     overflow: hidden;
     position: relative;
 
+    // ── ne grandit jamais, garde toujours son carré peu importe la hauteur de la carte ──
+    flex: 0 0 auto;
+
     &::before { content: ''; position: absolute; inset: 0; background: linear-gradient(145deg, #ddd4c8, #e8ddd5); }
     img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: 2; transition: transform .5s $ease-out; }
     .dish-card:hover & img { transform: scale(1.06); }
@@ -33,6 +39,13 @@
 .dish-card__body {
     padding: 0.9rem 1.1rem 1.3rem;
     text-align: center;
+
+    // ── absorbe l'espace restant pour égaliser la hauteur totale des cartes ──
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     h4 { font-size: 0.94rem; font-weight: 700; color: $texte-body; margin-bottom: .3rem; }
     p  { font-size: 0.80rem; color: $rose-principal; line-height: 1.55; font-style: italic; }
 
