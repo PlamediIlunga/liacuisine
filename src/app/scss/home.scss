@@ -183,7 +183,7 @@ img { max-width: 100%; display: block; }
     // ── Mobile : badge reste À DROITE (absolute), texte reste à gauche ──
     @media (max-width: $bp-mobile) {
         min-height: 560px;
-        padding: 8rem 0 3rem; // plus de clearance en haut pour laisser la place au badge
+        padding: 8rem 0 3rem;
 
         .hero__content { padding: 0 6%; max-width: 100%; text-align: left; }
         .hero__title    { font-size: clamp(2rem, 7.5vw, 2.6rem); }
@@ -332,7 +332,6 @@ img { max-width: 100%; display: block; }
     position: relative;
     padding: 5.5rem 3rem 6.5rem;
     background: linear-gradient(to bottom, $creme-pale 52%, $rouge-cta 48%);
-    //background: linear-gradient(to bottom, $creme-pale 99%, $rose-principal 1%);
 
     .specials__header {
         text-align: center;
@@ -381,8 +380,8 @@ img { max-width: 100%; display: block; }
         .specials__header { margin-bottom: 2.2rem; }
     }
     @media (max-width: $bp-small) {
-    padding: 3rem 1.2rem 3.5rem;
-    .specials__grid { grid-template-columns: 1fr; max-width: 340px; gap: 1.2rem; margin: 0 auto; }
+        padding: 3rem 1.2rem 3.5rem;
+        .specials__grid { grid-template-columns: 1fr; max-width: 340px; gap: 1.2rem; margin: 0 auto; }
     }
 }
 
@@ -404,12 +403,18 @@ img { max-width: 100%; display: block; }
         padding: 3rem 0 4rem;
     }
 
-    .about-split__img-wrap { position: relative; margin-bottom: -4rem; z-index: 2; }
+    .about-split__img-wrap {
+        display: block;
+        position: relative;
+        margin-bottom: -4rem;
+        z-index: 2;
+    }
 
     .about-split__carousel {
-        position: relative;
         display: block;
+        position: relative;
         width: 100%;
+        min-height: 260px; // garde-fou : si aspect-ratio n'est pas supporté, la boîte reste visible
         aspect-ratio: 3/4;
         border-radius: 10px;
         overflow: hidden;
@@ -418,6 +423,7 @@ img { max-width: 100%; display: block; }
     }
 
     .carousel__slide {
+        display: block;
         position: absolute;
         inset: 0;
         width: 100%;
@@ -575,6 +581,7 @@ img { max-width: 100%; display: block; }
         .about-split__inner { grid-template-columns: 1fr 1.15fr; gap: 2.5rem; }
         .about-split__text  { padding: 2rem 2rem 2rem 1rem; }
     }
+
     @media (max-width: $bp-mobile) {
         .about-split__inner    { grid-template-columns: 1fr; padding: 3.5rem 0 2.5rem; gap: 2.2rem; }
         .about-split__img-wrap { margin-bottom: 0; max-width: 300px; margin-left: auto; margin-right: auto; }
@@ -586,11 +593,31 @@ img { max-width: 100%; display: block; }
         }
         .review-quote { padding: .8rem 1rem; margin: .8rem 0; }
         .img-badge { right: 0; bottom: -1.5rem; width: 96px; height: 96px; }
+
+        // ── Zone de clic tactile agrandie pour les flèches ──
+        .carousel__btn {
+            width: 44px;
+            height: 44px;
+            font-size: 1.5rem;
+        }
     }
+
     @media (max-width: $bp-small) {
         padding: 0 1.2rem;
         .about-split__text { padding: 0; }
         .about-split__img-wrap { max-width: 240px; }
+
+        // ── Cadrage moins serré sur très petit écran ──
+        .about-split__carousel { aspect-ratio: 4/5; min-height: 220px; }
+
+        // ── Badge réduit pour éviter le chevauchement avec les dots ──
+        .img-badge {
+            width: 84px;
+            height: 84px;
+            bottom: -1.2rem;
+            strong { font-size: 1.5rem; }
+        }
+        .carousel__dots { bottom: 0.7rem; }
     }
 }
 
@@ -670,7 +697,6 @@ img { max-width: 100%; display: block; }
 // 6. CONTACT BAND
 // ════════════════════════════════════════════════════════
 .contact-band {
-    //background: linear-gradient(155deg, $rose-principal 0%, $rose-sombre 100%);
     background: linear-gradient(to bottom, $rouge-cta 100%, $rose-principal 0%);
     padding: 5rem 3rem 5.5rem;
 
