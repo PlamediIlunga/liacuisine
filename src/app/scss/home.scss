@@ -584,7 +584,7 @@ img { max-width: 100%; display: block; }
 
     @media (max-width: $bp-mobile) {
         .about-split__inner    { grid-template-columns: 1fr; padding: 3.5rem 0 2.5rem; gap: 2.2rem; }
-        .about-split__img-wrap { margin-bottom: 0; max-width: 300px; margin-left: auto; margin-right: auto; }
+        .about-split__img-wrap { margin-bottom: 0; max-width: 440px; width: 92%; margin-left: auto; margin-right: auto; }
         .about-split__text     {
             padding: 0 .5rem;
             text-align: left;
@@ -594,7 +594,6 @@ img { max-width: 100%; display: block; }
         .review-quote { padding: .8rem 1rem; margin: .8rem 0; }
         .img-badge { right: 0; bottom: -1.5rem; width: 96px; height: 96px; }
 
-        // ── Zone de clic tactile agrandie pour les flèches ──
         .carousel__btn {
             width: 60px;
             height: 60px;
@@ -605,12 +604,10 @@ img { max-width: 100%; display: block; }
     @media (max-width: $bp-small) {
         padding: 0 1.2rem;
         .about-split__text { padding: 0; }
-        .about-split__img-wrap { max-width: 240px; }
+        .about-split__img-wrap { max-width: 340px; width: 100%; }
 
-        // ── Cadrage moins serré sur très petit écran ──
-        .about-split__carousel { aspect-ratio: 4/5; min-height: 220px; }
+        .about-split__carousel { aspect-ratio: 4/5; min-height: 300px; }
 
-        // ── Badge réduit pour éviter le chevauchement avec les dots ──
         .img-badge {
             width: 84px;
             height: 84px;
