@@ -565,7 +565,14 @@ const scrollToDish = (index: number) => {
                                     MAR.–MER. 11H30–22H00 / JEU. 12H00–22H00 / VEN. 11H30–23H00 / SAM. 12H00–23H00 / DIM. 11H00–21H00 / LUN. FERMÉ.
                                 </div>
                                 <div className="map-frame">
-                                    <span>693 Bd Saint-Joseph, Gatineau QC</span>
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2798.7740592855835!2d-75.7434475242409!3d45.454208934106084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cce035b00c9311d%3A0xa8f75ffc8f33cbfd!2s693%20Bd%20Saint-Joseph%2C%20Gatineau%2C%20QC%20J8Y%204A8!5e0!3m2!1sfr!2sca!4v1784770619461!5m2!1sfr!2sca"
+                                        style={{ border: 0 }}
+                                        allowFullScreen
+                                        loading="lazy"
+                                        referrerPolicy="strict-origin-when-cross-origin"
+                                        title="693 Bd Saint-Joseph, Gatineau QC"
+                                    />
                                 </div>
                             </div>
                         </Reveal>
